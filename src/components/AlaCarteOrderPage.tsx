@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { alacarteItems, getCategoryItems, getCategoryNameAr, AlaCarteItem } from '../data/alacarteItems';
 import WeightSelectionModal from './WeightSelectionModal';
 import GiftBoxPreviewModal from './GiftBoxPreviewModal';
+import ProductImage from './ProductImage';
 import { useProductAvailability } from '../hooks/useProductAvailability';
 import { useCart } from '../contexts/CartContext';
 
@@ -117,10 +118,11 @@ export default function AlaCarteOrderPage({ onBack, onOpenCart }: AlaCarteOrderP
                       available ? 'bg-brown-200' : 'bg-gray-300'
                     }`}>
                       {item.imagePlaceholder ? (
-                        <img
+                        <ProductImage
                           src={item.imagePlaceholder}
                           alt={item.nameAr}
                           className={`w-full h-full object-cover ${!available ? 'grayscale' : ''}`}
+                          fallbackClassName="bg-brown-200"
                         />
                       ) : (
                         <Package className={`w-6 h-6 ${available ? 'text-brown-700' : 'text-gray-500'}`} />
@@ -166,10 +168,11 @@ export default function AlaCarteOrderPage({ onBack, onOpenCart }: AlaCarteOrderP
                       available ? 'bg-brown-200' : 'bg-gray-300'
                     }`}>
                       {item.imagePlaceholder ? (
-                        <img
+                        <ProductImage
                           src={item.imagePlaceholder}
                           alt={item.nameAr}
                           className={`w-full h-full object-cover ${!available ? 'grayscale' : ''}`}
+                          fallbackClassName="bg-brown-200"
                         />
                       ) : (
                         <Package className={`w-6 h-6 ${available ? 'text-brown-700' : 'text-gray-500'}`} />
@@ -215,10 +218,11 @@ export default function AlaCarteOrderPage({ onBack, onOpenCart }: AlaCarteOrderP
                       available ? 'bg-brown-200' : 'bg-gray-300'
                     }`}>
                       {item.imagePlaceholder ? (
-                        <img
+                        <ProductImage
                           src={item.imagePlaceholder}
                           alt={item.nameAr}
                           className={`w-full h-full object-cover ${!available ? 'grayscale' : ''}`}
+                          fallbackClassName="bg-brown-200"
                         />
                       ) : (
                         <Package className={`w-6 h-6 ${available ? 'text-brown-700' : 'text-gray-500'}`} />
