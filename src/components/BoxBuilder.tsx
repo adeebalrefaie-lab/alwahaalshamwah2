@@ -6,7 +6,6 @@ import { type BoxItem } from '../types';
 import { Container, calculateScaledWeight, calculateScaledPrice } from '../data/containers';
 import { useCart } from '../contexts/CartContext';
 import { useProductAvailability } from '../hooks/useProductAvailability';
-import ProductImage from './ProductImage';
 
 interface BoxBuilderProps {
   container: Container;
@@ -166,28 +165,24 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
                     onClick={() => addToBox(sweet)}
                     disabled={!available}
                     style={{ aspectRatio: '1/1' }}
-                    className={`rounded-xl shadow-md hover:shadow-lg transition-all relative overflow-hidden ${
-                      !available ? 'opacity-50 cursor-not-allowed' : ''
+                    className={`${
+                      sweet.id === 'separator'
+                        ? 'bg-brown-300 border-2 border-brown-600'
+                        : 'bg-cream-100 border-2 border-brown-400'
+                    } rounded-xl shadow-md hover:shadow-lg transition-all flex flex-col items-center justify-center p-4 relative ${
+                      !available ? 'opacity-50 cursor-not-allowed' : 'hover:bg-cream-200'
                     }`}
                   >
-                    <div className="absolute inset-0 w-full h-full">
-                      <ProductImage
-                        src={sweet.image}
-                        alt={sweet.nameAr}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-
-                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/20 hover:bg-black/10 transition-colors">
-                      <h3 className="font-bold text-sm text-center text-white drop-shadow-lg leading-tight px-2">
-                        {sweet.nameAr}
-                      </h3>
-                      {!available && (
-                        <span className="text-xs text-red-300 font-semibold mt-1 drop-shadow-md">
-                          نفذت الكمية
-                        </span>
-                      )}
-                    </div>
+                    <h3 className={`font-bold text-base text-center leading-tight ${
+                      available ? 'text-coffee' : 'text-gray-500'
+                    }`}>
+                      {sweet.nameAr}
+                    </h3>
+                    {!available && (
+                      <span className="text-xs text-red-600 font-semibold mt-1">
+                        نفذت الكمية
+                      </span>
+                    )}
                   </motion.button>
                 );
               })}
@@ -257,11 +252,21 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
                             overflow: 'hidden'
                           }}
                         >
-                          <ProductImage
+                          <img
                             src={item.sweet.image}
                             alt={item.sweet.nameAr}
-                            className="w-full h-full object-cover pointer-events-none"
-                            fallbackClassName="rounded-none"
+                            draggable={false}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover',
+                              objectPosition: 'center',
+                              display: 'block',
+                              margin: 0,
+                              padding: 0,
+                              userSelect: 'none',
+                              pointerEvents: 'none'
+                            }}
                           />
                         </motion.div>
                       );
@@ -281,14 +286,11 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
                   borderTop: '2px solid #8B6F47'
                 }}
               >
-                <div className="h-10 w-10">
-                  <ProductImage
-                    src="/assets/logo/logo.png"
-                    alt="شعار حلويات الواحة الشامية"
-                    className="h-full w-full object-contain"
-                    fallbackClassName="bg-brown-700"
-                  />
-                </div>
+                <img
+                  src="/assets/logo/logo.png"
+                  alt="شعار حلويات الواحة الشامية"
+                  className="h-10 w-auto object-contain"
+                />
                 <span className="text-white font-bold text-lg tracking-wide">
                   حلويات الواحة الشامية
                 </span>

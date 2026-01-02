@@ -45,9 +45,9 @@ export const alacarteItems: AlaCarteItem[] = [
   { id: 'mixed-dry', nameAr: 'مشكل برازق معمول غريبة', category: 'dry', pricePerKgJOD: 8.00 },
 
   // Category: علب هدايا مشكل (Assorted Gift Boxes)
-  { id: 'giftbox-small', nameAr: 'علبة مشكل صغيرة', category: 'giftbox', fixedWeightKg: 0.6, fixedPriceJOD: 12.00 },
+  { id: 'giftbox-small', nameAr: 'علبة مشكل صغيرة', category: 'giftbox', fixedWeightKg: 0.6, fixedPriceJOD: 12.00, imagePlaceholder: '/assets/sweets/علبة_مشكل_صغيرة.jpg' },
   { id: 'giftbox-medium', nameAr: 'علبة مشكل وسط', category: 'giftbox', fixedWeightKg: 0.85, fixedPriceJOD: 17.00 },
-  { id: 'giftbox-large', nameAr: 'علبة مشكل كبيرة هدايا', category: 'giftbox', fixedWeightKg: 1.0, fixedPriceJOD: 22.00 },
+  { id: 'giftbox-large', nameAr: 'علبة مشكل كبيرة هدايا', category: 'giftbox', fixedWeightKg: 1.0, fixedPriceJOD: 22.00, imagePlaceholder: '/assets/sweets/علبة_مشكل_كبيرة.jpg' },
 ];
 
 export const getCategoryItems = (category: 'daily' | 'dry' | 'giftbox') => {
