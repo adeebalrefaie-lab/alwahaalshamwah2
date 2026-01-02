@@ -1,5 +1,6 @@
 import { Menu, Phone, Package } from 'lucide-react';
 import { motion } from 'framer-motion';
+import ProductImage from './ProductImage';
 
 interface LandingPageProps {
   onStartBuilder: () => void;
@@ -38,11 +39,14 @@ export default function LandingPage({ onStartBuilder, onStartAlaCarte, onOpenMen
             transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
             className="inline-block"
           >
-            <img
-              src="/assets/logo/logo.png"
-              alt="شعار حلويات الواحة الشامية"
-              className="h-32 w-auto mx-auto object-contain"
-            />
+            <div className="h-32 w-32 mx-auto">
+              <ProductImage
+                src="/assets/logo/logo.png"
+                alt="شعار حلويات الواحة الشامية"
+                className="h-full w-full object-contain"
+                fallbackClassName="rounded-lg"
+              />
+            </div>
           </motion.div>
 
           <h1 className="text-3xl font-bold text-coffee">
