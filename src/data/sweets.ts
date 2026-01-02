@@ -15,7 +15,7 @@ export const sweets: Sweet[] = [
     widthCm: 4.0,
     weightGrams: 190,
     priceJOD: 1.0,
-    image: '/assets/sweets/harissa-qashta.png',
+    image: '/assets/sweets/harissa-qashta.webp',
   },
   {
     id: 'harissa-nuts',
@@ -39,7 +39,7 @@ export const sweets: Sweet[] = [
     widthCm: 9.0,
     weightGrams: 190,
     priceJOD: 2.5,
-    image: '/assets/sweets/walnut-fingers.png',
+    image: '/assets/sweets/walnut-fingers.webp',
   },
   {
     id: 'ash-lotus',
@@ -47,7 +47,7 @@ export const sweets: Sweet[] = [
     widthCm: 3.5,
     weightGrams: 70,
     priceJOD: 0.7,
-    image: '/assets/sweets/osh-lotus.png',
+    image: '/assets/sweets/osh-lotus.webp',
   },
   {
     id: 'ash-nutella',
@@ -55,7 +55,7 @@ export const sweets: Sweet[] = [
     widthCm: 3.5,
     weightGrams: 70,
     priceJOD: 0.7,
-    image: '/assets/sweets/osh-nutella.png',
+    image: '/assets/sweets/osh-nutella.webp',
   },
   {
     id: 'cocoa-fingers',
@@ -87,7 +87,7 @@ export const sweets: Sweet[] = [
     widthCm: 0.5,
     weightGrams: 0,
     priceJOD: 0.05,
-    image: '/assets/sweets/separator.png',
+    image: '/assets/sweets/separator.webp',
     isSpecial: true,
   },
 ];
