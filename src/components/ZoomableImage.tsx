@@ -11,7 +11,6 @@ export default function ZoomableImage({ src, alt }: ZoomableImageProps) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
-  const [imageError, setImageError] = useState(false);
 
   const imageRef = useRef<HTMLDivElement>(null);
   const touchStartDistance = useRef<number>(0);
@@ -122,17 +121,6 @@ export default function ZoomableImage({ src, alt }: ZoomableImageProps) {
     }
   }, [scale]);
 
-  if (imageError || !src) {
-    return (
-      <div className="relative bg-gradient-to-br from-cream-100 to-cream-200 rounded-xl overflow-hidden w-full h-96 flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-coffee font-semibold text-lg mb-2">{alt}</p>
-          <p className="text-coffee/60 text-sm">تعذر تحميل الصورة</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="relative bg-white rounded-xl overflow-hidden">
       <div
@@ -156,7 +144,6 @@ export default function ZoomableImage({ src, alt }: ZoomableImageProps) {
             transformOrigin: 'center center',
             transition: isDragging ? 'none' : 'transform 0.3s ease',
           }}
-          onError={() => setImageError(true)}
           onDoubleClick={() => {
             if (scale > minScale) {
               resetZoom();

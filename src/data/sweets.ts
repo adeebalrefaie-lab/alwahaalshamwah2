@@ -15,7 +15,7 @@ export const sweets: Sweet[] = [
     widthCm: 4.0,
     weightGrams: 190,
     priceJOD: 1.0,
-    image: '/assets/sweets/harisa-qashta.webp',
+    image: '/assets/sweets/harissa-qashta.png',
   },
   {
     id: 'harissa-nuts',
@@ -23,7 +23,7 @@ export const sweets: Sweet[] = [
     widthCm: 5.5,
     weightGrams: 225,
     priceJOD: 1.25,
-    image: '/assets/sweets/harisa-nuts.webp',
+    image: '/assets/sweets/harissa-nuts copy copy.png',
   },
   {
     id: 'greek',
@@ -31,7 +31,7 @@ export const sweets: Sweet[] = [
     widthCm: 5.0,
     weightGrams: 220,
     priceJOD: 1.5,
-    image: '/assets/sweets/greek.webp',
+    image: '/assets/sweets/greek copy copy.png',
   },
   {
     id: 'nuts',
@@ -39,7 +39,7 @@ export const sweets: Sweet[] = [
     widthCm: 9.0,
     weightGrams: 190,
     priceJOD: 2.5,
-    image: '/assets/sweets/walnut-fingers.webp',
+    image: '/assets/sweets/walnut-fingers.png',
   },
   {
     id: 'ash-lotus',
@@ -47,7 +47,7 @@ export const sweets: Sweet[] = [
     widthCm: 3.5,
     weightGrams: 70,
     priceJOD: 0.7,
-    image: '/assets/sweets/osh-lotus.webp',
+    image: '/assets/sweets/osh-lotus.png',
   },
   {
     id: 'ash-nutella',
@@ -55,7 +55,7 @@ export const sweets: Sweet[] = [
     widthCm: 3.5,
     weightGrams: 70,
     priceJOD: 0.7,
-    image: '/assets/sweets/osh-nutella.webp',
+    image: '/assets/sweets/osh-nutella.png',
   },
   {
     id: 'cocoa-fingers',
@@ -63,7 +63,7 @@ export const sweets: Sweet[] = [
     widthCm: 5.5,
     weightGrams: 160,
     priceJOD: 1.0,
-    image: '/assets/sweets/cocoa-fingers.webp',
+    image: '/assets/sweets/cocoa-fingers copy copy.png',
   },
   {
     id: 'harissa-nutella',
@@ -71,7 +71,7 @@ export const sweets: Sweet[] = [
     widthCm: 4.25,
     weightGrams: 150,
     priceJOD: 1.0,
-    image: '/assets/sweets/harisa-nutella.webp',
+    image: '/assets/sweets/harissa-nutella copy copy.png',
   },
   {
     id: 'halawet-jibn',
@@ -79,7 +79,7 @@ export const sweets: Sweet[] = [
     widthCm: 4.0,
     weightGrams: 190,
     priceJOD: 1.0,
-    image: '/assets/sweets/halawet-jibn.webp',
+    image: '/assets/sweets/halawet-jibn copy copy.png',
   },
   {
     id: 'separator',
@@ -87,7 +87,7 @@ export const sweets: Sweet[] = [
     widthCm: 0.5,
     weightGrams: 0,
     priceJOD: 0.05,
-    image: '/assets/sweets/seperator.webp',
+    image: '/assets/sweets/separator.png',
     isSpecial: true,
   },
 ];

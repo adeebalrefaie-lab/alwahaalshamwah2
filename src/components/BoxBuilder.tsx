@@ -1,12 +1,11 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { ArrowLeft, Trash2, ShoppingCart, AlertTriangle, Check, X } from 'lucide-react';
+import { ArrowLeft, Trash2, ShoppingCart, AlertTriangle, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { sweets, MIN_FILL_PERCENTAGE, type Sweet } from '../data/sweets';
 import { type BoxItem } from '../types';
 import { Container, calculateScaledWeight, calculateScaledPrice } from '../data/containers';
 import { useCart } from '../contexts/CartContext';
 import { useProductAvailability } from '../hooks/useProductAvailability';
-import ProductImage from './ProductImage';
 
 interface BoxBuilderProps {
   container: Container;
@@ -35,26 +34,13 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
 
   const currentWidth = boxItems.reduce((sum, item) => sum + item.sweet.widthCm, 0);
 
-  const showOverflowWarning = useCallback((itemName: string, remainingSpace: number, isSeparator: boolean) => {
-    const itemText = isSeparator ? 'لإضافة هذا الفاصل' : 'لإضافة هذا الصنف';
-    const spaceText = isSeparator ? 'لهذا الفاصل' : 'لهذا الصنف';
-    
-    if (remainingSpace <= 0) {
-      // Box is completely full
-      setOverflowMessage(
-        `لا يمكن إضافة "${itemName}" - العلبة ممتلئة بالكامل. الرجاء إزالة بعض الحلويات أو الفواصل ${itemText}.`
-      );
-    } else {
-      // Box has some space but not enough for this item
-      setOverflowMessage(
-        `لا يمكن إضافة "${itemName}" - لا توجد مساحة كافية ${spaceText}. الرجاء إزالة بعض الحلويات أو الفواصل ${itemText}.`
-      );
-    }
-  }, []);
+  const showOverflowWarning = useCallback((itemName: string) => {
+    setOverflowMessage(`لا يمكن إضافة "${itemName}"، تجاوز الحد الأقصى للتعبئة (${container.widthCm} سم)`);
+  }, [container.widthCm]);
 
   useEffect(() => {
     if (overflowMessage) {
-      const timer = setTimeout(() => setOverflowMessage(null), 5000);
+      const timer = setTimeout(() => setOverflowMessage(null), 3000);
       return () => clearTimeout(timer);
     }
   }, [overflowMessage]);
@@ -66,11 +52,9 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
     }
 
     const newTotalWidth = currentWidth + sweet.widthCm;
-    const remainingSpace = container.widthCm - currentWidth;
-    const isSeparator = sweet.id === 'separator';
 
     if (newTotalWidth > container.widthCm) {
-      showOverflowWarning(sweet.nameAr, remainingSpace, isSeparator);
+      showOverflowWarning(sweet.nameAr);
       return;
     }
 
@@ -166,28 +150,24 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
                     onClick={() => addToBox(sweet)}
                     disabled={!available}
                     style={{ aspectRatio: '1/1' }}
-                    className={`rounded-xl shadow-md hover:shadow-lg transition-all relative overflow-hidden ${
-                      !available ? 'opacity-50 cursor-not-allowed' : ''
+                    className={`${
+                      sweet.id === 'separator'
+                        ? 'bg-brown-300 border-2 border-brown-600'
+                        : 'bg-cream-100 border-2 border-brown-400'
+                    } rounded-xl shadow-md hover:shadow-lg transition-all flex flex-col items-center justify-center p-4 relative ${
+                      !available ? 'opacity-50 cursor-not-allowed' : 'hover:bg-cream-200'
                     }`}
                   >
-                    <div className="absolute inset-0 w-full h-full">
-                      <ProductImage
-                        src={sweet.image}
-                        alt={sweet.nameAr}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-
-                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/20 hover:bg-black/10 transition-colors">
-                      <h3 className="font-bold text-sm text-center text-white drop-shadow-lg leading-tight px-2">
-                        {sweet.nameAr}
-                      </h3>
-                      {!available && (
-                        <span className="text-xs text-red-300 font-semibold mt-1 drop-shadow-md">
-                          نفذت الكمية
-                        </span>
-                      )}
-                    </div>
+                    <h3 className={`font-bold text-base text-center leading-tight ${
+                      available ? 'text-coffee' : 'text-gray-500'
+                    }`}>
+                      {sweet.nameAr}
+                    </h3>
+                    {!available && (
+                      <span className="text-xs text-red-600 font-semibold mt-1">
+                        نفذت الكمية
+                      </span>
+                    )}
                   </motion.button>
                 );
               })}
@@ -204,12 +184,11 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
 
             <div className="bg-cream-100 rounded-xl p-3 shadow-md border-2 border-brown-400">
               <div
-                className="relative w-full overflow-hidden"
+                className="relative w-full rounded-lg overflow-hidden"
                 style={{
                   aspectRatio: `${container.widthCm}/${container.heightCm}`,
                   border: '2px solid #8B6F47',
-                  backgroundColor: '#FFF8F0',
-                  borderRadius: 0
+                  backgroundColor: '#FFF8F0'
                 }}
               >
                 {boxItems.length === 0 ? (
@@ -226,15 +205,11 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
                       justifyContent: 'flex-start',
                       gap: 0,
                       margin: 0,
-                      padding: 0,
-                      width: '100%',
-                      height: '100%'
+                      padding: 0
                     }}
                   >
                     {boxItems.map((item) => {
-                      // Calculate exact width percentage based on actual sweet width vs container width
                       const widthPercentage = (item.sweet.widthCm / container.widthCm) * 100;
-                      
                       return (
                         <motion.div
                           key={item.instanceId}
@@ -245,23 +220,27 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
                           className="cursor-pointer hover:opacity-80 transition-opacity"
                           style={{
                             width: `${widthPercentage}%`,
-                            minWidth: `${widthPercentage}%`,
-                            maxWidth: `${widthPercentage}%`,
                             height: '100%',
                             flexShrink: 0,
                             flexGrow: 0,
                             margin: 0,
                             padding: 0,
-                            lineHeight: 0,
-                            position: 'relative',
-                            overflow: 'hidden'
+                            lineHeight: 0
                           }}
                         >
-                          <ProductImage
+                          <img
                             src={item.sweet.image}
                             alt={item.sweet.nameAr}
-                            className="w-full h-full object-cover pointer-events-none"
-                            fallbackClassName="rounded-none"
+                            draggable={false}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover',
+                              objectPosition: 'center',
+                              display: 'block',
+                              margin: 0,
+                              padding: 0
+                            }}
                           />
                         </motion.div>
                       );
@@ -281,14 +260,11 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
                   borderTop: '2px solid #8B6F47'
                 }}
               >
-                <div className="h-10 w-10">
-                  <ProductImage
-                    src="/assets/logo/logo.png"
-                    alt="شعار حلويات الواحة الشامية"
-                    className="h-full w-full object-contain"
-                    fallbackClassName="bg-brown-700"
-                  />
-                </div>
+                <img
+                  src="/assets/logo/logo.png"
+                  alt="شعار حلويات الواحة الشامية"
+                  className="h-10 w-auto object-contain"
+                />
                 <span className="text-white font-bold text-lg tracking-wide">
                   حلويات الواحة الشامية
                 </span>
@@ -307,6 +283,20 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
                   />
                 </div>
               </div>
+
+              <AnimatePresence>
+                {overflowMessage && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="mt-3 bg-brown-50 border border-brown-400 rounded-lg p-3 flex items-center gap-2"
+                  >
+                    <AlertTriangle className="w-5 h-5 text-brown-700 flex-shrink-0" />
+                    <p className="text-sm text-brown-800 text-right">{overflowMessage}</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </div>
@@ -357,57 +347,6 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
           )}
         </div>
       </div>
-
-      {/* Error Popup Modal */}
-      <AnimatePresence>
-        {overflowMessage && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setOverflowMessage(null)}
-              className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
-            >
-              {/* Popup Content */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                onClick={(e) => e.stopPropagation()}
-                className="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 border-2 border-brown-400"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0">
-                    <AlertTriangle className="w-6 h-6 text-red-600" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-bold text-coffee mb-2">تنبيه</h3>
-                    <p className="text-sm text-brown-800 text-right leading-relaxed">
-                      {overflowMessage}
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => setOverflowMessage(null)}
-                    className="flex-shrink-0 p-1 hover:bg-brown-100 rounded-full transition-colors"
-                  >
-                    <X className="w-5 h-5 text-brown-600" />
-                  </button>
-                </div>
-                <div className="mt-4 flex justify-end">
-                  <button
-                    onClick={() => setOverflowMessage(null)}
-                    className="px-4 py-2 bg-brown-600 hover:bg-brown-700 text-white rounded-lg font-medium transition-colors"
-                  >
-                    فهمت
-                  </button>
-                </div>
-              </motion.div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
     </div>
   );
 }
