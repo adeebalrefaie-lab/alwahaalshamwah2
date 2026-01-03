@@ -1,5 +1,6 @@
 import { Menu, Phone, Package } from 'lucide-react';
 import { motion } from 'framer-motion';
+import PWAInstallButton from './PWAInstallButton';
 
 interface LandingPageProps {
   onStartBuilder: () => void;
@@ -96,6 +97,8 @@ export default function LandingPage({ onStartBuilder, onStartAlaCarte, onOpenMen
           </motion.button>
         </div>
       </motion.div>
+
+      <PWAInstallButton />
     </div>
   );
 }

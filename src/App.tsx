@@ -7,6 +7,7 @@ import MenuModal from './components/MenuModal';
 import ContainerSelectionModal from './components/ContainerSelectionModal';
 import UnifiedCartModal from './components/UnifiedCartModal';
 import UnifiedCheckoutModal from './components/UnifiedCheckoutModal';
+import ShopClosedBanner from './components/ShopClosedBanner';
 import { AdminLogin } from './components/AdminLogin';
 import { AdminDashboard } from './components/AdminDashboard';
 import { AdminAuthProvider, useAdminAuth } from './contexts/AdminAuthContext';
@@ -144,6 +145,8 @@ function AppContent() {
         notes={notes}
         totalPrice={getTotalPrice()}
       />
+
+      <ShopClosedBanner />
     </>
   );
 }

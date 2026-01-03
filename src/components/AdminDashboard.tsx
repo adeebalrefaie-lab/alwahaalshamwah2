@@ -4,6 +4,7 @@ import { supabase, ProductAvailability } from '../lib/supabase';
 import { alacarteItems, getCategoryNameAr } from '../data/alacarteItems';
 import { sweets } from '../data/sweets';
 import { LogOut, Package, RefreshCw } from 'lucide-react';
+import { ShopSettingsPanel } from './ShopSettingsPanel';
 
 export const AdminDashboard = () => {
   const { signOut, user } = useAdminAuth();
@@ -143,6 +144,8 @@ export const AdminDashboard = () => {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="space-y-8">
+          <ShopSettingsPanel />
+
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
             <div className="bg-gradient-to-r from-amber-500 to-orange-500 px-6 py-4">
               <h2 className="text-xl font-bold text-white text-right">
