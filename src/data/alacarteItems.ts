@@ -26,17 +26,17 @@ export const alacarteItems: AlaCarteItem[] = [
   // Category: اليوميات (Daily Sweets)
   { id: 'harissa-nuts', nameAr: 'هريسة مكسرات', category: 'daily', pricePerKgJOD: 5.50, imagePlaceholder: '/assets/sweets/هريسة_بالمكسرات.jpg' },
   { id: 'harissa-qashta', nameAr: 'هريسة بالقشطة', category: 'daily', pricePerKgJOD: 5.50, imagePlaceholder: '/assets/sweets/هريسة_قشطة.jpg' },
-  { id: 'halawet-jibn', nameAr: 'حلاوة الجبن', category: 'daily', pricePerKgJOD: 5.50, imagePlaceholder: '/assets/sweets/حلاوة_الجبن.jpg' },
+  { id: 'halawet-jibn', nameAr: 'حلاوة الجبن', category: 'daily', pricePerKgJOD: 5.50, imagePlaceholder: '/assets/sweets/حلاوة_الجبن.webp' },
   { id: 'warbat-qashta', nameAr: 'وربات بالقشطة', category: 'daily', pricePerKgJOD: 4.50, imagePlaceholder: '/assets/sweets/وربات_بالقشطة.jpg' },
   { id: 'harissa-plain', nameAr: 'هريسة سادة', category: 'daily', pricePerKgJOD: 4.50, imagePlaceholder: '/assets/sweets/هريسة_سادة.jpg' },
   { id: 'greek', nameAr: 'يونانية', category: 'daily', pricePerKgJOD: 6.50, imagePlaceholder: '/assets/sweets/يونانية.jpg' },
   { id: 'harissa-nutella', nameAr: 'هريسة نوتيلا', category: 'daily', pricePerKgJOD: 7.00, imagePlaceholder: '/assets/sweets/هريسة_نوتيلا.jpg' },
-  { id: 'cashew-nutella', nameAr: 'أصابع كاجو بالنوتيلا', category: 'daily', pricePerKgJOD: 6.50, imagePlaceholder: '/assets/sweets/أصابع_كاجو_بالنوتيلا.jpg' },
-  { id: 'walnut-fingers', nameAr: 'أصابع جوز', category: 'daily', pricePerKgJOD: 7.50, imagePlaceholder: '/assets/sweets/أصابع_جوز.jpg' },
+  { id: 'cashew-nutella', nameAr: 'أصابع كاجو بالنوتيلا', category: 'daily', pricePerKgJOD: 6.50, imagePlaceholder: '/assets/sweets/أصابع_كاجو_بالنوتيلا.webp' },
+  { id: 'walnut-fingers', nameAr: 'أصابع جوز', category: 'daily', pricePerKgJOD: 7.50, imagePlaceholder: '/assets/sweets/أصابع_جوز.webp' },
   { id: 'turkish-cake', nameAr: 'كيكة تركية', category: 'daily', pricePerKgJOD: 5.00, imagePlaceholder: '/assets/sweets/كيكة_تركية.jpg' },
-  { id: 'osh-lotus', nameAr: 'عش هنا لوتس', category: 'daily', pricePerKgJOD: 10.00, imagePlaceholder: '/assets/sweets/عش_الهنا.jpg' },
-  { id: 'osh-nutella', nameAr: 'عش هنا نوتيلا', category: 'daily', pricePerKgJOD: 10.00, imagePlaceholder: '/assets/sweets/عش_الهنا.jpg' },
-  { id: 'tem-samaka', nameAr: 'تم السمكة', category: 'daily', pricePerKgJOD: 16.00, imagePlaceholder: '/assets/sweets/تم_السمكة.jpg' },
+  { id: 'osh-lotus', nameAr: 'عش هنا لوتس', category: 'daily', pricePerKgJOD: 10.00, imagePlaceholder: '/assets/sweets/عش_الهنا.webp' },
+  { id: 'osh-nutella', nameAr: 'عش هنا نوتيلا', category: 'daily', pricePerKgJOD: 10.00, imagePlaceholder: '/assets/sweets/عش_الهنا.webp' },
+  { id: 'tem-samaka', nameAr: 'تم السمكة', category: 'daily', pricePerKgJOD: 16.00, imagePlaceholder: '/assets/sweets/تم_السمكة.webp' },
 
   // Category: النواشف (Dry Sweets)
   { id: 'barazek', nameAr: 'برازق', category: 'dry', pricePerKgJOD: 7.00 },

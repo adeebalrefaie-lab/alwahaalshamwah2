@@ -120,6 +120,7 @@ export default function AlaCarteOrderPage({ onBack, onOpenCart }: AlaCarteOrderP
                         <img
                           src={item.imagePlaceholder}
                           alt={item.nameAr}
+                          loading="lazy"
                           className={`w-full h-full object-cover ${!available ? 'grayscale' : ''}`}
                         />
                       ) : (
@@ -169,6 +170,7 @@ export default function AlaCarteOrderPage({ onBack, onOpenCart }: AlaCarteOrderP
                         <img
                           src={item.imagePlaceholder}
                           alt={item.nameAr}
+                          loading="lazy"
                           className={`w-full h-full object-cover ${!available ? 'grayscale' : ''}`}
                         />
                       ) : (
@@ -218,6 +220,7 @@ export default function AlaCarteOrderPage({ onBack, onOpenCart }: AlaCarteOrderP
                         <img
                           src={item.imagePlaceholder}
                           alt={item.nameAr}
+                          loading="lazy"
                           className={`w-full h-full object-cover ${!available ? 'grayscale' : ''}`}
                         />
                       ) : (

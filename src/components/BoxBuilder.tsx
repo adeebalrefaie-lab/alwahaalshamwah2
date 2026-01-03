@@ -140,30 +140,43 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
         <div className="p-4 space-y-6">
           <div>
             <h2 className="text-base font-semibold text-coffee mb-2">اختر الحلويات</h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+            <div className="space-y-1.5">
               {scaledSweets.map((sweet) => {
                 const available = isAvailable(sweet.id);
                 return (
                   <motion.button
                     key={sweet.id}
-                    whileTap={available ? { scale: 0.95 } : {}}
+                    whileTap={available ? { scale: 0.98 } : {}}
                     onClick={() => addToBox(sweet)}
                     disabled={!available}
                     className={`${
                       sweet.id === 'separator'
                         ? 'bg-brown-300 border-2 border-brown-600'
                         : 'bg-cream-100 border-2 border-brown-400'
-                    } rounded-lg shadow-sm hover:shadow-md transition-all flex items-center justify-center px-3 py-2 relative ${
+                    } rounded-lg shadow-sm hover:shadow-md transition-all w-full flex items-center gap-3 px-3 py-2 relative ${
                       !available ? 'opacity-50 cursor-not-allowed' : 'hover:bg-cream-200'
                     }`}
+                    style={{ height: '60px' }}
                   >
-                    <h3 className={`font-bold text-xs text-center leading-tight ${
-                      available ? 'text-coffee' : 'text-gray-500'
-                    }`}>
-                      {sweet.nameAr}
-                    </h3>
+                    <img
+                      src={sweet.image}
+                      alt={sweet.nameAr}
+                      loading="lazy"
+                      className="w-14 h-14 object-cover rounded-md flex-shrink-0"
+                      style={{ aspectRatio: '1/1' }}
+                    />
+                    <div className="flex-1 text-right">
+                      <h3 className={`font-bold text-sm leading-tight ${
+                        available ? 'text-coffee' : 'text-gray-500'
+                      }`}>
+                        {sweet.nameAr}
+                      </h3>
+                      <p className="text-xs text-coffee/60 mt-0.5">
+                        {sweet.priceJOD.toFixed(2)} د.أ • {sweet.widthCm} سم
+                      </p>
+                    </div>
                     {!available && (
-                      <span className="absolute -top-1 -right-1 text-[9px] text-red-600 font-semibold bg-white px-1.5 py-0.5 rounded">
+                      <span className="absolute -top-1 -right-1 text-[9px] text-red-600 font-semibold bg-white px-1.5 py-0.5 rounded shadow">
                         نفذت
                       </span>
                     )}
