@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { X, Send, User, Phone as PhoneIcon } from 'lucide-react';
+import { X, Send, User, Phone as PhoneIcon, Truck, Store } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { UnifiedCartItem } from '../types';
 
@@ -11,6 +11,8 @@ interface UnifiedCheckoutModalProps {
   totalPrice: number;
 }
 
+type DeliveryMethod = 'delivery' | 'pickup' | '';
+
 export default function UnifiedCheckoutModal({
   isOpen,
   onClose,
@@ -20,12 +22,14 @@ export default function UnifiedCheckoutModal({
 }: UnifiedCheckoutModalProps) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [deliveryMethod, setDeliveryMethod] = useState<DeliveryMethod>('');
 
   const generateWhatsAppMessage = () => {
     let message = `📦 طلب جديد - حلويات الواحة الشامية\n\n`;
 
     message += `👤 الاسم: ${name}\n`;
-    message += `📞 رقم الهاتف: ${phone}\n\n`;
+    message += `📞 رقم الهاتف: ${phone}\n`;
+    message += `🚚 طريقة الاستلام: ${deliveryMethod === 'delivery' ? 'توصيل' : 'استلام من الفرع'}\n\n`;
 
     if (notes.trim()) {
       message += `📝 ملاحظات: ${notes}\n\n`;
@@ -72,8 +76,8 @@ export default function UnifiedCheckoutModal({
   };
 
   const handleSubmit = () => {
-    if (!name.trim() || !phone.trim()) {
-      alert('الرجاء ملء جميع الحقول المطلوبة');
+    if (!name.trim() || !phone.trim() || !deliveryMethod) {
+      alert('الرجاء ملء جميع الحقول المطلوبة واختيار طريقة الاستلام');
       return;
     }
 
@@ -151,6 +155,41 @@ export default function UnifiedCheckoutModal({
                       dir="ltr"
                     />
                   </div>
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <label className="block text-sm text-coffee/70 text-right">
+                  طريقة الاستلام <span className="text-red-600">*</span>
+                </label>
+                <div className="grid grid-cols-2 gap-3">
+                  <motion.button
+                    type="button"
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => setDeliveryMethod('delivery')}
+                    className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center justify-center gap-2 ${
+                      deliveryMethod === 'delivery'
+                        ? 'bg-brown-600 border-brown-600 text-white'
+                        : 'bg-cream-50 border-brown-400 text-coffee hover:border-brown-600'
+                    }`}
+                  >
+                    <Truck className="w-6 h-6" />
+                    <span className="font-semibold">توصيل</span>
+                  </motion.button>
+
+                  <motion.button
+                    type="button"
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => setDeliveryMethod('pickup')}
+                    className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center justify-center gap-2 ${
+                      deliveryMethod === 'pickup'
+                        ? 'bg-brown-600 border-brown-600 text-white'
+                        : 'bg-cream-50 border-brown-400 text-coffee hover:border-brown-600'
+                    }`}
+                  >
+                    <Store className="w-6 h-6" />
+                    <span className="font-semibold">استلام من الفرع</span>
+                  </motion.button>
                 </div>
               </div>
 
