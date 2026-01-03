@@ -51,56 +51,56 @@ export default function ContainerSelectionModal({ isOpen, onClose, onSelect }: C
               </p>
             </div>
 
-            <div className="p-8 space-y-10">
+            <div className="p-4 space-y-4">
               <div>
-                <h3 className="text-2xl font-bold text-coffee mb-6 text-center">
+                <h3 className="text-lg font-bold text-coffee mb-3 text-center">
                   العلب
                 </h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                   {boxes.map((container) => (
                     <motion.button
                       key={container.id}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => handleSelect(container)}
-                      className="relative p-6 bg-cream-100 rounded-xl shadow-md hover:shadow-xl transition-all border-2 border-brown-400 hover:border-brown-600 text-right"
+                      className="relative p-2 bg-cream-100 rounded-lg shadow-md hover:shadow-xl transition-all border border-brown-400 hover:border-brown-600 text-right"
                     >
-                      <h4 className="text-xl font-bold text-coffee mb-3">
+                      <h4 className="text-xs font-bold text-coffee mb-1">
                         {container.nameAr}
                       </h4>
 
-                      <p className="text-lg text-brown-700 mb-4 font-semibold">
+                      <p className="text-xs text-brown-700 mb-1 font-semibold">
                         {container.heightCm} × {container.widthCm} cm
                       </p>
 
-                      <p className="text-sm text-brown-600 leading-relaxed">
-                        سعر علبة فارغة: <span className="font-bold text-brown-800 text-base">{container.basePriceJOD.toFixed(2)} دينار</span>
+                      <p className="text-[10px] text-brown-600 leading-tight">
+                        سعر فارغة: <span className="font-bold text-brown-800">{container.basePriceJOD.toFixed(2)} د</span>
                       </p>
                     </motion.button>
                   ))}
                 </div>
               </div>
 
-              <div className="border-t-2 border-brown-400 pt-8">
-                <h3 className="text-2xl font-bold text-coffee mb-6 text-center">
+              <div className="border-t border-brown-400 pt-4">
+                <h3 className="text-lg font-bold text-coffee mb-3 text-center">
                   الصحون
                 </h3>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
                   {trays.map((container) => (
                     <motion.button
                       key={container.id}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => handleSelect(container)}
-                      className="relative p-6 bg-cream-100 rounded-xl shadow-md hover:shadow-xl transition-all border-2 border-brown-400 hover:border-brown-600 text-right"
+                      className="relative p-2 bg-cream-100 rounded-lg shadow-md hover:shadow-xl transition-all border border-brown-400 hover:border-brown-600 text-right"
                     >
-                      <h4 className="text-lg font-bold text-coffee mb-3">
+                      <h4 className="text-xs font-bold text-coffee mb-1">
                         {container.nameAr}
                       </h4>
 
-                      <p className="text-base text-brown-700 font-semibold">
+                      <p className="text-[10px] text-brown-700 font-semibold">
                         {container.heightCm} × {container.widthCm} cm
                       </p>
                     </motion.button>

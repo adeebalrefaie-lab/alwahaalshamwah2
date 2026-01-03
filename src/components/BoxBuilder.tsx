@@ -139,8 +139,8 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
       <div className="flex-1 overflow-y-auto pb-32">
         <div className="p-4 space-y-6">
           <div>
-            <h2 className="text-lg font-semibold text-coffee mb-3">اختر الحلويات</h2>
-            <div className="grid grid-cols-2 gap-3">
+            <h2 className="text-base font-semibold text-coffee mb-2">اختر الحلويات</h2>
+            <div className="grid grid-cols-3 md:grid-cols-4 gap-1">
               {scaledSweets.map((sweet) => {
                 const available = isAvailable(sweet.id);
                 return (
@@ -149,23 +149,22 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
                     whileTap={available ? { scale: 0.95 } : {}}
                     onClick={() => addToBox(sweet)}
                     disabled={!available}
-                    style={{ aspectRatio: '1/1' }}
                     className={`${
                       sweet.id === 'separator'
-                        ? 'bg-brown-300 border-2 border-brown-600'
-                        : 'bg-cream-100 border-2 border-brown-400'
-                    } rounded-xl shadow-md hover:shadow-lg transition-all flex flex-col items-center justify-center p-4 relative ${
+                        ? 'bg-brown-300 border border-brown-600'
+                        : 'bg-cream-100 border border-brown-400'
+                    } rounded-lg shadow-sm hover:shadow-md transition-all flex items-center justify-center px-2 py-1 relative ${
                       !available ? 'opacity-50 cursor-not-allowed' : 'hover:bg-cream-200'
                     }`}
                   >
-                    <h3 className={`font-bold text-base text-center leading-tight ${
+                    <h3 className={`font-bold text-[10px] text-center leading-tight ${
                       available ? 'text-coffee' : 'text-gray-500'
                     }`}>
                       {sweet.nameAr}
                     </h3>
                     {!available && (
-                      <span className="text-xs text-red-600 font-semibold mt-1">
-                        نفذت الكمية
+                      <span className="absolute -top-1 -right-1 text-[8px] text-red-600 font-semibold bg-white px-1 rounded">
+                        نفذت
                       </span>
                     )}
                   </motion.button>
