@@ -153,20 +153,24 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
                       sweet.id === 'separator'
                         ? 'bg-brown-300 border-2 border-brown-600'
                         : 'bg-cream-100 border-2 border-brown-400'
-                    } rounded-lg shadow-sm hover:shadow-md transition-all flex flex-col items-center justify-center px-2 py-3 relative ${
+                    } rounded-lg shadow-sm hover:shadow-md transition-all flex flex-col items-center justify-center relative ${
                       !available ? 'opacity-50 cursor-not-allowed' : 'hover:bg-cream-200'
                     }`}
+                    style={{
+                      height: '70px',
+                      padding: '0.4rem'
+                    }}
                   >
-                    <div className="text-center w-full">
+                    <div className="text-center w-full flex flex-col items-center justify-center h-full">
                       <h3 className={`font-bold leading-tight ${
                         available ? 'text-coffee' : 'text-gray-500'
                       }`}
-                      style={{ fontSize: '135%' }}>
+                      style={{ fontSize: '108%' }}>
                         {sweet.nameAr}
                       </h3>
-                      <p className="text-coffee/60 mt-1"
-                         style={{ fontSize: 'calc(135% * 0.75)' }}>
-                        {sweet.priceJOD.toFixed(2)} د.أ • {sweet.widthCm} سم
+                      <p className="text-coffee/60 mt-0.5"
+                         style={{ fontSize: '81%' }}>
+                        {sweet.priceJOD.toFixed(2)} د.أ
                       </p>
                     </div>
                     {!available && (
@@ -194,7 +198,7 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
                 style={{
                   aspectRatio: `${container.widthCm}/${container.heightCm}`,
                   border: '2px solid #8B6F47',
-                  backgroundColor: '#FFF8F0'
+                  backgroundColor: '#D4AF37'
                 }}
               >
                 {boxItems.length === 0 ? (
@@ -260,19 +264,14 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
               </div>
 
               <div
-                className="w-full rounded-b-lg flex items-center justify-center gap-3 py-3"
+                className="w-full rounded-b-lg flex items-center justify-center py-3 px-2"
                 style={{
                   background: 'linear-gradient(to bottom, #6B5644, #4A3F35)',
                   borderTop: '2px solid #8B6F47'
                 }}
               >
-                <img
-                  src="/assets/logo/logo.png"
-                  alt="شعار حلويات الواحة الشامية"
-                  className="h-10 w-auto object-contain"
-                />
-                <span className="text-white font-bold text-lg tracking-wide">
-                  حلويات الواحة الشامية
+                <span className="text-white font-semibold text-sm text-center leading-tight">
+                  للإزالة، اضغط على الصنف داخل العلبة
                 </span>
               </div>
 
