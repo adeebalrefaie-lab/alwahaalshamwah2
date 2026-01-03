@@ -25,12 +25,12 @@ export const weightOptions: WeightOption[] = [
 export const alacarteItems: AlaCarteItem[] = [
   // Category: اليوميات (Daily Sweets)
   { id: 'harissa-nuts', nameAr: 'هريسة مكسرات', category: 'daily', pricePerKgJOD: 5.50, imagePlaceholder: '/assets/sweets/هريسة_بالمكسرات.webp' },
-  { id: 'harissa-qashta', nameAr: 'هريسة بالقشطة', category: 'daily', pricePerKgJOD: 5.50, imagePlaceholder: '/assets/sweets/هريسة_قشطة.jpg' },
+  { id: 'harissa-qashta', nameAr: 'هريسة بالقشطة', category: 'daily', pricePerKgJOD: 5.50, imagePlaceholder: '/assets/sweets/هريسة_قشطة.webp' },
   { id: 'halawet-jibn', nameAr: 'حلاوة الجبن', category: 'daily', pricePerKgJOD: 5.50, imagePlaceholder: '/assets/sweets/حلاوة_الجبن.webp' },
-  { id: 'warbat-qashta', nameAr: 'وربات بالقشطة', category: 'daily', pricePerKgJOD: 4.50, imagePlaceholder: '/assets/sweets/وربات_بالقشطة.jpg' },
+  { id: 'warbat-qashta', nameAr: 'وربات بالقشطة', category: 'daily', pricePerKgJOD: 4.50, imagePlaceholder: '/assets/sweets/وربات_بالقشطة.webp' },
   { id: 'harissa-plain', nameAr: 'هريسة سادة', category: 'daily', pricePerKgJOD: 4.50, imagePlaceholder: '/assets/sweets/هريسة_سادة.webp' },
-  { id: 'greek', nameAr: 'يونانية', category: 'daily', pricePerKgJOD: 6.50, imagePlaceholder: '/assets/sweets/يونانية.jpg' },
-  { id: 'harissa-nutella', nameAr: 'هريسة نوتيلا', category: 'daily', pricePerKgJOD: 7.00, imagePlaceholder: '/assets/sweets/هريسة_نوتيلا.jpg' },
+  { id: 'greek', nameAr: 'يونانية', category: 'daily', pricePerKgJOD: 6.50, imagePlaceholder: '/assets/sweets/يونانية.webp' },
+  { id: 'harissa-nutella', nameAr: 'هريسة نوتيلا', category: 'daily', pricePerKgJOD: 7.00, imagePlaceholder: '/assets/sweets/هريسة_نوتيلا.webp' },
   { id: 'cashew-nutella', nameAr: 'أصابع كاجو بالنوتيلا', category: 'daily', pricePerKgJOD: 6.50, imagePlaceholder: '/assets/sweets/أصابع_كاجو_بالنوتيلا.webp' },
   { id: 'walnut-fingers', nameAr: 'أصابع جوز', category: 'daily', pricePerKgJOD: 7.50, imagePlaceholder: '/assets/sweets/أصابع_جوز.webp' },
   { id: 'turkish-cake', nameAr: 'كيكة تركية', category: 'daily', pricePerKgJOD: 5.00, imagePlaceholder: '/assets/sweets/كيكة_تركية.webp' },
