@@ -140,7 +140,7 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
         <div className="p-4 space-y-6">
           <div>
             <h2 className="text-base font-semibold text-coffee mb-2">اختر الحلويات</h2>
-            <div className="space-y-1.5">
+            <div className="grid grid-cols-2 gap-2">
               {scaledSweets.map((sweet) => {
                 const available = isAvailable(sweet.id);
                 return (
@@ -153,25 +153,19 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
                       sweet.id === 'separator'
                         ? 'bg-brown-300 border-2 border-brown-600'
                         : 'bg-cream-100 border-2 border-brown-400'
-                    } rounded-lg shadow-sm hover:shadow-md transition-all w-full flex items-center gap-3 px-3 py-2 relative ${
+                    } rounded-lg shadow-sm hover:shadow-md transition-all flex flex-col items-center justify-center px-2 py-3 relative ${
                       !available ? 'opacity-50 cursor-not-allowed' : 'hover:bg-cream-200'
                     }`}
-                    style={{ height: '60px' }}
                   >
-                    <img
-                      src={sweet.image}
-                      alt={sweet.nameAr}
-                      loading="lazy"
-                      className="w-14 h-14 object-cover rounded-md flex-shrink-0"
-                      style={{ aspectRatio: '1/1' }}
-                    />
-                    <div className="flex-1 text-right">
-                      <h3 className={`font-bold text-sm leading-tight ${
+                    <div className="text-center w-full">
+                      <h3 className={`font-bold leading-tight ${
                         available ? 'text-coffee' : 'text-gray-500'
-                      }`}>
+                      }`}
+                      style={{ fontSize: '135%' }}>
                         {sweet.nameAr}
                       </h3>
-                      <p className="text-xs text-coffee/60 mt-0.5">
+                      <p className="text-coffee/60 mt-1"
+                         style={{ fontSize: 'calc(135% * 0.75)' }}>
                         {sweet.priceJOD.toFixed(2)} د.أ • {sweet.widthCm} سم
                       </p>
                     </div>

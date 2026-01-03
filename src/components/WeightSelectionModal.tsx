@@ -30,77 +30,75 @@ export default function WeightSelectionModal({ isOpen, onClose, item, onAddToCar
           />
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
+            animate={{ opacity: 1, scale: 0.9, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.2 }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-lg max-h-[90vh] bg-cream rounded-2xl shadow-2xl flex flex-col"
+            className="relative w-full max-w-md bg-cream rounded-2xl shadow-2xl"
           >
             <button
               onClick={onClose}
-              className="absolute top-2 right-2 p-1.5 bg-white/90 hover:bg-white rounded-full transition-all shadow-md z-20 hover:scale-110"
+              className="absolute top-1.5 right-1.5 p-1 bg-white/90 hover:bg-white rounded-full transition-all shadow-md z-20 hover:scale-110"
             >
-              <X className="w-4 h-4 text-coffee" />
+              <X className="w-3.5 h-3.5 text-coffee" />
             </button>
 
-            <div className="overflow-y-auto">
-              <div className="p-4 space-y-3">
-                {item.imagePlaceholder && (
-                  <div className="relative w-full h-[200px] rounded-xl overflow-hidden">
-                    <img
-                      src={item.imagePlaceholder}
-                      alt={item.nameAr}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                )}
-
-                <div className="text-center space-y-1">
-                  <h2 className="text-xl font-bold text-coffee">
-                    {item.nameAr}
-                  </h2>
-                  {item.pricePerKgJOD && (
-                    <p className="text-brown-600 font-medium text-sm">
-                      {item.pricePerKgJOD?.toFixed(2)} دينار / كيلو
-                    </p>
-                  )}
+            <div className="p-3.5 space-y-2.5">
+              {item.imagePlaceholder && (
+                <div className="relative w-full h-[160px] rounded-xl overflow-hidden">
+                  <img
+                    src={item.imagePlaceholder}
+                    alt={item.nameAr}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
+              )}
 
-                <div className="space-y-2 pt-1">
-                  <h3 className="text-sm font-semibold text-coffee text-center">
-                    اختر الوزن
-                  </h3>
-                  <div className="grid grid-cols-2 gap-2">
-                    {(item.customWeightOptions || weightOptions).map((option) => {
-                      let weight: number;
-                      let label: string;
-                      let price: number;
+              <div className="text-center space-y-0.5">
+                <h2 className="text-lg font-bold text-coffee">
+                  {item.nameAr}
+                </h2>
+                {item.pricePerKgJOD && (
+                  <p className="text-brown-600 font-medium text-xs">
+                    {item.pricePerKgJOD?.toFixed(2)} دينار / كيلو
+                  </p>
+                )}
+              </div>
 
-                      if ('id' in option) {
-                        weight = (option as typeof weightOptions[0]).weightKg;
-                        label = (option as typeof weightOptions[0]).nameAr;
-                        price = (item.pricePerKgJOD || 0) * weight;
-                      } else {
-                        const customOption = option as CustomWeightOption;
-                        weight = customOption.weightKg;
-                        label = customOption.nameAr;
-                        price = customOption.priceJOD;
-                      }
+              <div className="space-y-1.5">
+                <h3 className="text-xs font-semibold text-coffee text-center">
+                  اختر الوزن
+                </h3>
+                <div className="grid grid-cols-2 gap-1.5">
+                  {(item.customWeightOptions || weightOptions).map((option) => {
+                    let weight: number;
+                    let label: string;
+                    let price: number;
 
-                      return (
-                        <motion.button
-                          key={label}
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          onClick={() => handleSelectWeight(weight, label)}
-                          className="px-2.5 py-2 bg-gradient-to-br from-cream-100 to-white border-2 border-brown-400 rounded-lg hover:border-brown-600 hover:shadow-md transition-all flex flex-col items-center justify-center gap-0.5"
-                        >
-                          <span className="font-bold text-coffee text-xs">{label}</span>
-                          <span className="text-brown-700 font-bold text-[0.65rem]">{price.toFixed(2)} د.أ</span>
-                        </motion.button>
-                      );
-                    })}
-                  </div>
+                    if ('id' in option) {
+                      weight = (option as typeof weightOptions[0]).weightKg;
+                      label = (option as typeof weightOptions[0]).nameAr;
+                      price = (item.pricePerKgJOD || 0) * weight;
+                    } else {
+                      const customOption = option as CustomWeightOption;
+                      weight = customOption.weightKg;
+                      label = customOption.nameAr;
+                      price = customOption.priceJOD;
+                    }
+
+                    return (
+                      <motion.button
+                        key={label}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => handleSelectWeight(weight, label)}
+                        className="px-2 py-1.5 bg-gradient-to-br from-cream-100 to-white border-2 border-brown-400 rounded-lg hover:border-brown-600 hover:shadow-md transition-all flex flex-col items-center justify-center gap-0.5"
+                      >
+                        <span className="font-bold text-coffee text-[0.65rem]">{label}</span>
+                        <span className="text-brown-700 font-bold text-[0.6rem]">{price.toFixed(2)} د.أ</span>
+                      </motion.button>
+                    );
+                  })}
                 </div>
               </div>
             </div>
