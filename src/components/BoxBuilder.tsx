@@ -140,7 +140,7 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
         <div className="p-4 space-y-6">
           <div>
             <h2 className="text-base font-semibold text-coffee mb-2">اختر الحلويات</h2>
-            <div className="grid grid-cols-3 md:grid-cols-4 gap-1">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
               {scaledSweets.map((sweet) => {
                 const available = isAvailable(sweet.id);
                 return (
@@ -151,19 +151,19 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
                     disabled={!available}
                     className={`${
                       sweet.id === 'separator'
-                        ? 'bg-brown-300 border border-brown-600'
-                        : 'bg-cream-100 border border-brown-400'
-                    } rounded-lg shadow-sm hover:shadow-md transition-all flex items-center justify-center px-2 py-1 relative ${
+                        ? 'bg-brown-300 border-2 border-brown-600'
+                        : 'bg-cream-100 border-2 border-brown-400'
+                    } rounded-lg shadow-sm hover:shadow-md transition-all flex items-center justify-center px-3 py-2 relative ${
                       !available ? 'opacity-50 cursor-not-allowed' : 'hover:bg-cream-200'
                     }`}
                   >
-                    <h3 className={`font-bold text-[10px] text-center leading-tight ${
+                    <h3 className={`font-bold text-xs text-center leading-tight ${
                       available ? 'text-coffee' : 'text-gray-500'
                     }`}>
                       {sweet.nameAr}
                     </h3>
                     {!available && (
-                      <span className="absolute -top-1 -right-1 text-[8px] text-red-600 font-semibold bg-white px-1 rounded">
+                      <span className="absolute -top-1 -right-1 text-[9px] text-red-600 font-semibold bg-white px-1.5 py-0.5 rounded">
                         نفذت
                       </span>
                     )}
