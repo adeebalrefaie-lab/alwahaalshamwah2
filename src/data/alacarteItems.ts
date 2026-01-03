@@ -39,10 +39,10 @@ export const alacarteItems: AlaCarteItem[] = [
   { id: 'tem-samaka', nameAr: 'تم السمكة', category: 'daily', pricePerKgJOD: 16.00, imagePlaceholder: '/assets/sweets/تم_السمكة.webp' },
 
   // Category: النواشف (Dry Sweets)
-  { id: 'barazek', nameAr: 'برازق', category: 'dry', pricePerKgJOD: 7.00 },
-  { id: 'ghraybeh', nameAr: 'غريبة', category: 'dry', pricePerKgJOD: 8.00 },
-  { id: 'maamoul', nameAr: 'معمول بالتمر', category: 'dry', pricePerKgJOD: 8.00 },
-  { id: 'mixed-dry', nameAr: 'مشكل برازق معمول غريبة', category: 'dry', pricePerKgJOD: 8.00 },
+  { id: 'barazek', nameAr: 'برازق', category: 'dry', pricePerKgJOD: 7.00, imagePlaceholder: '/assets/sweets/٢٠٢٥١٢١٧_١٨٢٨١٢999999999.webp' },
+  { id: 'ghraybeh', nameAr: 'غريبة', category: 'dry', pricePerKgJOD: 8.00, imagePlaceholder: '/assets/sweets/٢٠٢٥١٢١٧_١٨٢٨١٢999999999.webp' },
+  { id: 'maamoul', nameAr: 'معمول بالتمر', category: 'dry', pricePerKgJOD: 8.00, imagePlaceholder: '/assets/sweets/٢٠٢٥١٢١٧_١٨٢٨١٢999999999.webp' },
+  { id: 'mixed-dry', nameAr: 'مشكل برازق معمول غريبة', category: 'dry', pricePerKgJOD: 8.00, imagePlaceholder: '/assets/sweets/٢٠٢٥١٢١٧_١٨٢٨١٢999999999.webp' },
 
   // Category: علب هدايا مشكل (Assorted Gift Boxes)
   { id: 'giftbox-small', nameAr: 'علبة مشكل صغيرة', category: 'giftbox', fixedWeightKg: 0.6, fixedPriceJOD: 12.00, imagePlaceholder: '/assets/sweets/علبة_مشكل_صغيرة.webp' },
