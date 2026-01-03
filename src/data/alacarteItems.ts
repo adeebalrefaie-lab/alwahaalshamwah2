@@ -1,3 +1,9 @@
+export interface CustomWeightOption {
+  weightKg: number;
+  nameAr: string;
+  priceJOD: number;
+}
+
 export interface AlaCarteItem {
   id: string;
   nameAr: string;
@@ -6,6 +12,7 @@ export interface AlaCarteItem {
   fixedWeightKg?: number;
   fixedPriceJOD?: number;
   imagePlaceholder?: string;
+  customWeightOptions?: CustomWeightOption[];
 }
 
 export interface WeightOption {
@@ -48,6 +55,12 @@ export const alacarteItems: AlaCarteItem[] = [
   { id: 'giftbox-small', nameAr: 'علبة مشكل صغيرة', category: 'giftbox', fixedWeightKg: 0.6, fixedPriceJOD: 12.00, imagePlaceholder: '/assets/sweets/علبة_مشكل_صغيرة.webp' },
   { id: 'giftbox-medium', nameAr: 'علبة مشكل وسط', category: 'giftbox', fixedWeightKg: 0.85, fixedPriceJOD: 17.00 },
   { id: 'giftbox-large', nameAr: 'علبة مشكل كبيرة هدايا', category: 'giftbox', fixedWeightKg: 1.0, fixedPriceJOD: 22.00, imagePlaceholder: '/assets/sweets/علبة_مشكل_كبيرة.webp' },
+
+  // Category: النواشف (Dry Sweets) - with custom weight options
+  { id: 'bitfor', nameAr: 'بيتفور', category: 'dry', imagePlaceholder: '/assets/sweets/بيتفور.webp', customWeightOptions: [
+    { weightKg: 0.5, nameAr: 'نصف كيلو', priceJOD: 4 },
+    { weightKg: 1, nameAr: 'كيلو', priceJOD: 8 },
+  ]},
 ];
 
 export const getCategoryItems = (category: 'daily' | 'dry' | 'giftbox') => {

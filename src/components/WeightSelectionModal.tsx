@@ -1,6 +1,6 @@
 import { X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { AlaCarteItem, weightOptions } from '../data/alacarteItems';
+import { AlaCarteItem, weightOptions, type CustomWeightOption } from '../data/alacarteItems';
 import { useState } from 'react';
 import ZoomableImage from './ZoomableImage';
 
@@ -71,9 +71,11 @@ export default function WeightSelectionModal({ isOpen, onClose, item, onAddToCar
                   <h2 className="text-2xl font-bold text-coffee">
                     {item.nameAr}
                   </h2>
-                  <p className="text-brown-600 font-medium">
-                    {item.pricePerKgJOD?.toFixed(2)} دينار / كيلو
-                  </p>
+                  {item.pricePerKgJOD && (
+                    <p className="text-brown-600 font-medium">
+                      {item.pricePerKgJOD?.toFixed(2)} دينار / كيلو
+                    </p>
+                  )}
                 </div>
 
                 <div className="space-y-3">
@@ -81,18 +83,32 @@ export default function WeightSelectionModal({ isOpen, onClose, item, onAddToCar
                     اختر الوزن
                   </h3>
                   <div className="grid grid-cols-2 gap-3">
-                    {weightOptions.map((option) => {
-                      const totalPrice = (item.pricePerKgJOD || 0) * option.weightKg;
+                    {(item.customWeightOptions || weightOptions).map((option) => {
+                      let weight: number;
+                      let label: string;
+                      let price: number;
+
+                      if ('id' in option) {
+                        weight = (option as typeof weightOptions[0]).weightKg;
+                        label = (option as typeof weightOptions[0]).nameAr;
+                        price = (item.pricePerKgJOD || 0) * weight;
+                      } else {
+                        const customOption = option as CustomWeightOption;
+                        weight = customOption.weightKg;
+                        label = customOption.nameAr;
+                        price = customOption.priceJOD;
+                      }
+
                       return (
                         <motion.button
-                          key={option.id}
+                          key={label}
                           whileHover={{ scale: 1.03 }}
                           whileTap={{ scale: 0.97 }}
-                          onClick={() => handleSelectWeight(option.weightKg, option.nameAr)}
+                          onClick={() => handleSelectWeight(weight, label)}
                           className="p-4 bg-gradient-to-br from-cream-100 to-white border-2 border-brown-400 rounded-xl hover:border-brown-600 hover:shadow-md transition-all flex flex-col items-center justify-center gap-1.5"
                         >
-                          <span className="font-bold text-coffee text-base">{option.nameAr}</span>
-                          <span className="text-brown-700 font-bold text-sm">{totalPrice.toFixed(2)} د.أ</span>
+                          <span className="font-bold text-coffee text-base">{label}</span>
+                          <span className="text-brown-700 font-bold text-sm">{price.toFixed(2)} د.أ</span>
                         </motion.button>
                       );
                     })}

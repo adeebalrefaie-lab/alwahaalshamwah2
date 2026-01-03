@@ -54,7 +54,15 @@ export default function AlaCarteOrderPage({ onBack, onOpenCart }: AlaCarteOrderP
   };
 
   const handleAddToCart = (item: AlaCarteItem, weightKg: number, weightLabel: string) => {
-    const totalPrice = (item.pricePerKgJOD || 0) * weightKg;
+    let totalPrice = (item.pricePerKgJOD || 0) * weightKg;
+
+    if (item.customWeightOptions) {
+      const customOption = item.customWeightOptions.find(o => o.weightKg === weightKg);
+      if (customOption) {
+        totalPrice = customOption.priceJOD;
+      }
+    }
+
     addToCart({
       type: 'alacarte',
       id: item.id,
@@ -186,7 +194,11 @@ export default function AlaCarteOrderPage({ onBack, onOpenCart }: AlaCarteOrderP
                       )}
                     </div>
                     <span className={`font-bold ${available ? 'text-brown-700' : 'text-gray-500'}`}>
-                      {item.pricePerKgJOD?.toFixed(2)} د.أ/كغ
+                      {item.customWeightOptions ? (
+                        `من ${Math.min(...item.customWeightOptions.map(o => o.priceJOD)).toFixed(2)} د.أ`
+                      ) : (
+                        `${item.pricePerKgJOD?.toFixed(2)} د.أ/كغ`
+                      )}
                     </span>
                   </motion.button>
                 );
