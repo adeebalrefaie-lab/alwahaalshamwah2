@@ -44,7 +44,7 @@ export default function ContainerSelectionModal({ isOpen, onClose, onSelect }: C
               </button>
 
               <h2 className="text-3xl font-bold text-white text-center mb-2">
-                اختر الحاوية
+                اختر العلبة
               </h2>
               <p className="text-cream-100 text-center">
                 Choose Your Container
@@ -57,8 +57,8 @@ export default function ContainerSelectionModal({ isOpen, onClose, onSelect }: C
                   العلب
                 </h3>
 
-                <div className="space-y-3">
-                  <div className="grid grid-cols-2 gap-3 max-w-2xl mx-auto">
+                <div className="space-y-3 max-w-2xl mx-auto">
+                  <div className="grid grid-cols-2 gap-3">
                     {boxes.slice(0, 2).map((container) => (
                       <motion.button
                         key={container.id}
@@ -83,26 +83,24 @@ export default function ContainerSelectionModal({ isOpen, onClose, onSelect }: C
                   </div>
 
                   {boxes[2] && (
-                    <div className="flex justify-center">
-                      <motion.button
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        onClick={() => handleSelect(boxes[2])}
-                        className="relative p-6 bg-cream-100 rounded-xl shadow-md hover:shadow-xl transition-all border-2 border-brown-400 hover:border-brown-600 text-center w-72 aspect-square flex flex-col items-center justify-center"
-                      >
-                        <h4 className="text-lg font-bold text-coffee mb-2">
-                          {boxes[2].nameAr}
-                        </h4>
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => handleSelect(boxes[2])}
+                      className="relative w-full p-6 bg-cream-100 rounded-xl shadow-md hover:shadow-xl transition-all border-2 border-brown-400 hover:border-brown-600 text-center flex flex-col items-center justify-center"
+                    >
+                      <h4 className="text-lg font-bold text-coffee mb-2">
+                        {boxes[2].nameAr}
+                      </h4>
 
-                        <p className="text-sm text-brown-700 mb-2 font-semibold">
-                          {boxes[2].heightCm} × {boxes[2].widthCm} cm
-                        </p>
+                      <p className="text-sm text-brown-700 mb-2 font-semibold">
+                        {boxes[2].heightCm} × {boxes[2].widthCm} cm
+                      </p>
 
-                        <p className="text-xs text-brown-600 leading-tight">
-                          سعر فارغة: <span className="font-bold text-brown-800">{boxes[2].basePriceJOD.toFixed(2)} دينار</span>
-                        </p>
-                      </motion.button>
-                    </div>
+                      <p className="text-xs text-brown-600 leading-tight">
+                        سعر فارغة: <span className="font-bold text-brown-800">{boxes[2].basePriceJOD.toFixed(2)} دينار</span>
+                      </p>
+                    </motion.button>
                   )}
                 </div>
               </div>
