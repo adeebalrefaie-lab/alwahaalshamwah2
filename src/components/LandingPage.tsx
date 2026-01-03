@@ -96,9 +96,15 @@ export default function LandingPage({ onStartBuilder, onStartAlaCarte, onOpenMen
             <span>تواصل معنا</span>
           </motion.button>
         </div>
-      </motion.div>
 
-      <PWAInstallButton />
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+        >
+          <PWAInstallButton />
+        </motion.div>
+      </motion.div>
     </div>
   );
 }
