@@ -198,7 +198,7 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
                 style={{
                   aspectRatio: `${container.widthCm}/${container.heightCm}`,
                   border: '2px solid #8B6F47',
-                  backgroundColor: '#D4AF37'
+                  backgroundColor: '#FBAF76'
                 }}
               >
                 {boxItems.length === 0 ? (
