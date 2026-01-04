@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { X, Send, User, Phone as PhoneIcon, Truck, Store } from 'lucide-react';
+import { X, Send, User, Phone as PhoneIcon, Truck, Store, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { UnifiedCartItem } from '../types';
+import { useShopStatus } from '../hooks/useShopStatus';
 
 interface UnifiedCheckoutModalProps {
   isOpen: boolean;
@@ -23,6 +24,7 @@ export default function UnifiedCheckoutModal({
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [deliveryMethod, setDeliveryMethod] = useState<DeliveryMethod>('');
+  const { isOpen: isShopOpen } = useShopStatus();
 
   const generateWhatsAppMessage = () => {
     let message = `📦 طلب جديد - حلويات الواحة الشامية\n\n`;
@@ -193,10 +195,24 @@ export default function UnifiedCheckoutModal({
                 </div>
               </div>
 
+              {!isShopOpen && (
+                <div className="bg-red-50 border-2 border-red-400 rounded-xl p-4 flex items-center gap-3 text-red-800">
+                  <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                  <p className="text-sm font-semibold">
+                    المحل مغلق حالياً، لا يمكن إتمام الطلب الآن
+                  </p>
+                </div>
+              )}
+
               <motion.button
-                whileTap={{ scale: 0.98 }}
+                whileTap={isShopOpen ? { scale: 0.98 } : {}}
                 onClick={handleSubmit}
-                className="w-full bg-gradient-to-r from-brown-600 to-brown-700 hover:from-brown-700 hover:to-brown-800 text-white py-4 rounded-xl font-semibold flex items-center justify-center gap-2 hover:shadow-lg transition-all"
+                disabled={!isShopOpen}
+                className={`w-full py-4 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all ${
+                  isShopOpen
+                    ? 'bg-gradient-to-r from-brown-600 to-brown-700 hover:from-brown-700 hover:to-brown-800 text-white hover:shadow-lg cursor-pointer'
+                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                }`}
               >
                 <Send className="w-5 h-5" />
                 <span>إرسال الطلب عبر واتساب</span>

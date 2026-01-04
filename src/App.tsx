@@ -146,7 +146,7 @@ function AppContent() {
         totalPrice={getTotalPrice()}
       />
 
-      <ShopClosedBanner />
+      <ShopClosedBanner isAdminRoute={isAdminRoute || isAdminLoginOpen} />
     </>
   );
 }

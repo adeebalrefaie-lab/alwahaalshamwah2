@@ -1,10 +1,16 @@
-import { AlertCircle, Clock } from 'lucide-react';
+import { useState } from 'react';
+import { AlertCircle, Clock, ArrowLeft } from 'lucide-react';
 import { useShopStatus } from '../hooks/useShopStatus';
 
-export default function ShopClosedBanner() {
-  const { isOpen, reason, nextOpenTime, loading } = useShopStatus();
+interface ShopClosedBannerProps {
+  isAdminRoute?: boolean;
+}
 
-  if (loading || isOpen) return null;
+export default function ShopClosedBanner({ isAdminRoute = false }: ShopClosedBannerProps) {
+  const { isOpen, reason, nextOpenTime, loading } = useShopStatus();
+  const [isDismissed, setIsDismissed] = useState(false);
+
+  if (loading || isOpen || isDismissed || isAdminRoute) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
@@ -41,10 +47,18 @@ export default function ShopClosedBanner() {
           </div>
         )}
 
-        <div className="bg-gray-50 rounded-lg p-4 text-sm text-gray-600">
+        <div className="bg-gray-50 rounded-lg p-4 text-sm text-gray-600 mb-6">
           <p className="font-semibold mb-2">للتواصل:</p>
           <p>يمكنكم الاتصال بنا على رقم الهاتف</p>
         </div>
+
+        <button
+          onClick={() => setIsDismissed(true)}
+          className="w-full bg-brown-600 hover:bg-brown-700 text-white py-3 px-6 rounded-xl font-semibold transition-colors flex items-center justify-center gap-2"
+        >
+          <span>استمرار للموقع</span>
+          <ArrowLeft className="w-5 h-5" />
+        </button>
       </div>
     </div>
   );
