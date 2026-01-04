@@ -10,6 +10,7 @@ interface UnifiedCheckoutModalProps {
   cartItems: UnifiedCartItem[];
   notes: string;
   totalPrice: number;
+  clearCart: () => void;
 }
 
 type DeliveryMethod = 'delivery' | 'pickup' | '';
@@ -20,6 +21,7 @@ export default function UnifiedCheckoutModal({
   cartItems,
   notes,
   totalPrice,
+  clearCart,
 }: UnifiedCheckoutModalProps) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -27,52 +29,75 @@ export default function UnifiedCheckoutModal({
   const { isOpen: isShopOpen } = useShopStatus();
 
   const generateWhatsAppMessage = () => {
-    let message = `📦 طلب جديد - حلويات الواحة الشامية\n\n`;
+    let message = `🌟 طلب جديد - حلويات الواحة الشامية 🌟\n\n`;
 
-    message += `👤 الاسم: ${name}\n`;
-    message += `📞 رقم الهاتف: ${phone}\n`;
-    message += `🚚 طريقة الاستلام: ${deliveryMethod === 'delivery' ? 'توصيل' : 'استلام من الفرع'}\n\n`;
-
-    if (notes.trim()) {
-      message += `📝 ملاحظات: ${notes}\n\n`;
-    }
-
-    const customBoxes = cartItems.filter(item => item.type === 'custom');
+    const customBoxes = cartItems.filter(item => item.type === 'custombox');
     const alacarteItems = cartItems.filter(item => item.type === 'alacarte');
 
     if (customBoxes.length > 0) {
-      message += `━━━━━━━━━━━━━━━━\n`;
-      message += `أ. العلب المخصصة / علب المشكل:\n\n`;
+      message += `━━━━━━━━━━━━━━━━━━━━\n`;
+      message += `📦 العلب المخصصة / علب المشكل:\n`;
+      message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
 
       customBoxes.forEach((box, index) => {
         const boxContents = box.boxItems
           .map(item => {
             if (item.sweet.id === 'separator') {
-              return 'قاطع';
+              return '🔲 قاطع';
             }
-            return item.sweet.nameAr;
+            return `🍬 ${item.sweet.nameAr}`;
           })
           .reverse()
-          .join('، ');
+          .join('\n   ');
 
-        message += `${index + 1}. علبة مخصصة (${box.container.nameAr}):\n`;
+        message += `${index + 1}️⃣ علبة مخصصة (${box.container.nameAr})\n`;
+        message += `   📝 المحتويات (من اليمين إلى اليسار):\n`;
         message += `   ${boxContents}\n`;
-        message += `   السعر: ${box.totalPrice.toFixed(2)} د.أ\n\n`;
+        message += `   💰 السعر: ${box.totalPrice.toFixed(2)} د.أ\n\n`;
       });
     }
 
     if (alacarteItems.length > 0) {
-      message += `━━━━━━━━━━━━━━━━\n`;
-      message += `ب. الأصناف المحددة:\n\n`;
+      message += `━━━━━━━━━━━━━━━━━━━━\n`;
+      message += `🍯 الأصناف المحددة:\n`;
+      message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
 
-      alacarteItems.forEach((item, index) => {
-        message += `${index + 1}. ${item.weightLabel} ${item.item.nameAr}\n`;
-        message += `   السعر: ${item.totalPrice.toFixed(2)} د.أ\n\n`;
+      const itemGroups = new Map<string, { item: typeof alacarteItems[0], count: number }>();
+
+      alacarteItems.forEach(item => {
+        const key = `${item.item.id}-${item.weightLabel}`;
+        if (itemGroups.has(key)) {
+          itemGroups.get(key)!.count++;
+        } else {
+          itemGroups.set(key, { item, count: 1 });
+        }
+      });
+
+      let itemIndex = 1;
+      itemGroups.forEach(({ item, count }) => {
+        message += `${itemIndex}️⃣ ${item.item.nameAr}\n`;
+        message += `   📏 الحجم: ${item.weightLabel}\n`;
+        message += `   🔢 الكمية: ${count}\n`;
+        message += `   💰 سعر الوحدة: ${item.totalPrice.toFixed(2)} د.أ\n`;
+        if (count > 1) {
+          message += `   💵 المجموع الفرعي: ${(item.totalPrice * count).toFixed(2)} د.أ\n`;
+        }
+        message += `\n`;
+        itemIndex++;
       });
     }
 
-    message += `━━━━━━━━━━━━━━━━\n`;
+    message += `━━━━━━━━━━━━━━━━━━━━\n`;
     message += `💰 المجموع الكلي: ${totalPrice.toFixed(2)} دينار أردني\n`;
+    message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+
+    message += `👤 الاسم: ${name}\n`;
+    message += `📞 رقم الهاتف: ${phone}\n`;
+    message += `🚚 طريقة الاستلام: ${deliveryMethod === 'delivery' ? 'توصيل 🚗' : 'استلام من الفرع 🏪'}\n`;
+
+    if (notes.trim()) {
+      message += `\n📝 ملاحظات إضافية:\n${notes}\n`;
+    }
 
     return message;
   };
@@ -86,6 +111,7 @@ export default function UnifiedCheckoutModal({
     const message = generateWhatsAppMessage();
     const whatsappUrl = `https://wa.me/962781506347?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
+    clearCart();
     onClose();
   };
 

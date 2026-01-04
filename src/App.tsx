@@ -144,6 +144,7 @@ function AppContent() {
         cartItems={cartItems}
         notes={notes}
         totalPrice={getTotalPrice()}
+        clearCart={clearCart}
       />
 
       <ShopClosedBanner isAdminRoute={isAdminRoute || isAdminLoginOpen} />
