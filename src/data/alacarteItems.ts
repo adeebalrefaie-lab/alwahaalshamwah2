@@ -57,7 +57,7 @@ export const alacarteItems: AlaCarteItem[] = [
   { id: 'giftbox-large', nameAr: 'علبة مشكل كبيرة هدايا', category: 'giftbox', fixedWeightKg: 1.0, fixedPriceJOD: 22.00, imagePlaceholder: '/assets/sweets/علبة_مشكل_كبيرة.webp' },
 
   // Category: النواشف (Dry Sweets) - with custom weight options
-  { id: 'bitfor', nameAr: 'بيتفور', category: 'dry', imagePlaceholder: '/assets/sweets/بيتفور.webp', customWeightOptions: [
+  { id: 'bitfor', nameAr: 'بيتفور', category: 'dry', pricePerKgJOD: 8.00, imagePlaceholder: '/assets/sweets/بيتفور.webp', customWeightOptions: [
     { weightKg: 0.5, nameAr: 'نصف كيلو', priceJOD: 4 },
     { weightKg: 1, nameAr: 'كيلو', priceJOD: 8 },
   ]},

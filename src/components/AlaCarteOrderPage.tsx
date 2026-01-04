@@ -194,10 +194,12 @@ export default function AlaCarteOrderPage({ onBack, onOpenCart }: AlaCarteOrderP
                       )}
                     </div>
                     <span className={`font-bold ${available ? 'text-brown-700' : 'text-gray-500'}`}>
-                      {item.customWeightOptions ? (
+                      {item.pricePerKgJOD ? (
+                        `${item.pricePerKgJOD.toFixed(2)} د.أ/كغ`
+                      ) : item.customWeightOptions ? (
                         `من ${Math.min(...item.customWeightOptions.map(o => o.priceJOD)).toFixed(2)} د.أ`
                       ) : (
-                        `${item.pricePerKgJOD?.toFixed(2)} د.أ/كغ`
+                        ''
                       )}
                     </span>
                   </motion.button>
