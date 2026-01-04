@@ -94,8 +94,8 @@ export default function WeightSelectionModal({ isOpen, onClose, item, onAddToCar
                         onClick={() => handleSelectWeight(weight, label)}
                         className="px-3 py-2.5 bg-gradient-to-br from-cream-100 to-white border-2 border-brown-400 rounded-lg hover:border-brown-600 hover:shadow-md transition-all flex flex-row items-center justify-between gap-2"
                       >
-                        <span className="text-brown-700 font-bold text-sm">{price.toFixed(2)} د.أ</span>
-                        <span className="font-bold text-coffee text-sm">{label}</span>
+                        <span className="text-brown-700 font-bold text-[0.81rem]">{price.toFixed(2)} د.أ</span>
+                        <span className="font-bold text-coffee text-[0.88rem]">{label}</span>
                       </motion.button>
                     );
                   })}
