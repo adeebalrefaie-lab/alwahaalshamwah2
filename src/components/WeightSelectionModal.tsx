@@ -54,17 +54,15 @@ export default function WeightSelectionModal({ isOpen, onClose, item, onAddToCar
                 </div>
               )}
 
-              <div className="text-center flex flex-col items-center gap-0.5">
-                <div className="flex items-center gap-2">
-                  <h2 className="text-[1.52rem] font-bold text-coffee">
-                    {item.nameAr}
-                  </h2>
-                  {item.pricePerKgJOD && (
-                    <p className="text-brown-600 font-medium text-[1.01rem]">
-                      {item.pricePerKgJOD?.toFixed(2)} دينار / كيلو
-                    </p>
-                  )}
-                </div>
+              <div className="text-center space-y-0.5">
+                <h2 className="text-[1.52rem] font-bold text-coffee">
+                  {item.nameAr}
+                </h2>
+                {item.pricePerKgJOD && (
+                  <p className="text-brown-600 font-medium text-[1.01rem]">
+                    {item.pricePerKgJOD?.toFixed(2)} دينار / كيلو
+                  </p>
+                )}
               </div>
 
               <div className="space-y-1.5">
