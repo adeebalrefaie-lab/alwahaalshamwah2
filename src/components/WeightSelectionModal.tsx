@@ -92,10 +92,10 @@ export default function WeightSelectionModal({ isOpen, onClose, item, onAddToCar
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         onClick={() => handleSelectWeight(weight, label)}
-                        className="px-3 py-2.5 bg-gradient-to-br from-cream-100 to-white border-2 border-brown-400 rounded-lg hover:border-brown-600 hover:shadow-md transition-all flex flex-row items-center justify-between gap-2"
+                        className="px-3 py-2.5 h-[3.5rem] bg-gradient-to-br from-cream-100 to-white border-2 border-brown-400 rounded-lg hover:border-brown-600 hover:shadow-md transition-all flex flex-row items-center justify-between gap-1"
                       >
-                        <span className="text-brown-700 font-bold text-[0.81rem]">{price.toFixed(2)} د.أ</span>
-                        <span className="font-bold text-coffee text-[0.88rem]">{label}</span>
+                        <span className="text-brown-700 font-bold text-[1.09rem]">{price.toFixed(2)} د.أ</span>
+                        <span className="font-bold text-coffee text-[1.09rem]">{label}</span>
                       </motion.button>
                     );
                   })}
