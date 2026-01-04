@@ -310,13 +310,13 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
       <div className="fixed bottom-0 left-0 right-0 bg-cream-100/95 backdrop-blur border-t-2 border-brown-400 shadow-lg">
         <div className="p-4 space-y-3">
           <div className="flex justify-between text-sm">
-            <div className="space-y-1">
-              <p className="text-coffee/60">السعر الإجمالي</p>
+            <div className="flex items-center gap-2">
               <p className="text-2xl font-bold text-bronze">{totalPrice.toFixed(2)} د.أ</p>
+              <p className="text-coffee/60">السعر الإجمالي</p>
             </div>
-            <div className="space-y-1 text-left">
-              <p className="text-coffee/60">الوزن الكلي</p>
+            <div className="flex items-center gap-2 text-left">
               <p className="text-xl font-semibold text-coffee">{totalWeight} غرام</p>
+              <p className="text-coffee/60">الوزن الكلي</p>
             </div>
           </div>
 
