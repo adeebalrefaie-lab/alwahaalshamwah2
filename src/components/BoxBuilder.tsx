@@ -157,7 +157,7 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
                       !available ? 'opacity-50 cursor-not-allowed' : 'hover:bg-cream-200'
                     }`}
                     style={{
-                      height: '70px',
+                      height: '59.5px',
                       padding: '0.4rem'
                     }}
                   >
@@ -308,20 +308,20 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
       </div>
 
       <div className="fixed bottom-0 left-0 right-0 bg-cream-100/95 backdrop-blur border-t-2 border-brown-400 shadow-lg">
-        <div className="p-4 space-y-3">
-          <div className="flex justify-between text-sm">
+        <div style={{ padding: '13.6px', display: 'flex', flexDirection: 'column', gap: '10.2px' }}>
+          <div className="flex justify-between">
             <div className="space-y-1">
-              <p className="text-coffee/60">السعر الإجمالي</p>
-              <p className="text-2xl font-bold text-bronze">{totalPrice.toFixed(2)} د.أ</p>
+              <p className="text-coffee/60" style={{ fontSize: '12.6px' }}>السعر الإجمالي</p>
+              <p className="font-bold text-bronze" style={{ fontSize: '21.6px' }}>{totalPrice.toFixed(2)} د.أ</p>
             </div>
             <div className="space-y-1 text-left">
-              <p className="text-coffee/60">الوزن الكلي</p>
-              <p className="text-xl font-semibold text-coffee">{totalWeight} غرام</p>
+              <p className="text-coffee/60" style={{ fontSize: '12.6px' }}>الوزن الكلي</p>
+              <p className="font-semibold text-coffee" style={{ fontSize: '18px' }}>{totalWeight} غرام</p>
             </div>
           </div>
 
           {!canCheckout && boxItems.length > 0 && (
-            <p className="text-xs text-brown-600 text-center">
+            <p className="text-brown-600 text-center" style={{ fontSize: '10.8px' }}>
               الرجاء تعبئة {MIN_FILL_PERCENTAGE}% من العلبة على الأقل ({(MIN_FILL_PERCENTAGE - fillPercentage).toFixed(0)}% متبقي)
             </p>
           )}
@@ -330,7 +330,8 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="w-full py-4 rounded-xl font-semibold bg-green-600 text-white flex items-center justify-center gap-2"
+              className="w-full rounded-xl font-semibold bg-green-600 text-white flex items-center justify-center gap-2"
+              style={{ paddingTop: '13.6px', paddingBottom: '13.6px', fontSize: '14.4px' }}
             >
               <Check className="w-5 h-5" />
               <span>تمت الإضافة إلى السلة</span>
@@ -340,11 +341,12 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
               whileTap={{ scale: 0.98 }}
               onClick={handleAddToCart}
               disabled={!canCheckout}
-              className={`w-full py-4 rounded-xl font-semibold text-white flex items-center justify-center gap-2 transition-all ${
+              className={`w-full rounded-xl font-semibold text-white flex items-center justify-center gap-2 transition-all ${
                 canCheckout
                   ? 'bg-brown-700 hover:bg-brown-800 hover:shadow-lg'
                   : 'bg-brown-300 cursor-not-allowed'
               }`}
+              style={{ paddingTop: '13.6px', paddingBottom: '13.6px', fontSize: '14.4px' }}
             >
               <ShoppingCart className="w-5 h-5" />
               <span>أضف إلى السلة</span>
