@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import LandingPage from './components/LandingPage';
 import BoxBuilder from './components/BoxBuilder';
 import AlaCarteOrderPage from './components/AlaCarteOrderPage';
@@ -13,6 +13,7 @@ import { AdminDashboard } from './components/AdminDashboard';
 import { AdminAuthProvider, useAdminAuth } from './contexts/AdminAuthContext';
 import { CartProvider, useCart } from './contexts/CartContext';
 import { type Container } from './data/containers';
+import { useHistoryManager } from './hooks/useHistoryManager';
 
 type Page = 'landing' | 'builder' | 'alacarte';
 
@@ -28,6 +29,36 @@ function AppContent() {
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [isContainerSelectionOpen, setIsContainerSelectionOpen] = useState(false);
   const [selectedContainer, setSelectedContainer] = useState<Container | null>(null);
+
+  const closeAllModals = useCallback(() => {
+    setIsContainerSelectionOpen(false);
+    setIsContactOpen(false);
+    setIsMenuOpen(false);
+    setIsCartOpen(false);
+    setIsCheckoutOpen(false);
+    setIsAdminLoginOpen(false);
+  }, []);
+
+  const handlePageChange = useCallback((page: Page) => {
+    setCurrentPage(page);
+    if (page === 'landing') {
+      setSelectedContainer(null);
+    }
+  }, []);
+
+  useHistoryManager({
+    currentPage,
+    modalState: {
+      isContainerSelectionOpen,
+      isContactOpen,
+      isMenuOpen,
+      isCartOpen,
+      isCheckoutOpen,
+      isAdminLoginOpen,
+    },
+    onPageChange: handlePageChange,
+    onCloseModals: closeAllModals,
+  });
 
   useEffect(() => {
     const checkAdminRoute = () => {
@@ -45,17 +76,17 @@ function AppContent() {
   };
 
   const handleStartAlaCarte = () => {
-    setCurrentPage('alacarte');
+    handlePageChange('alacarte');
   };
 
   const handleContainerSelect = (container: Container) => {
     setSelectedContainer(container);
+    setIsContainerSelectionOpen(false);
     setCurrentPage('builder');
   };
 
   const handleBackToLanding = () => {
-    setCurrentPage('landing');
-    setSelectedContainer(null);
+    handlePageChange('landing');
   };
 
   const handleCheckout = () => {
