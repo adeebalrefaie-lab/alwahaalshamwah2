@@ -43,12 +43,9 @@ export default function ContainerSelectionModal({ isOpen, onClose, onSelect }: C
                 <X className="w-6 h-6 text-white" />
               </button>
 
-              <h2 className="text-3xl font-bold text-white text-center mb-2">
+              <h2 className="text-3xl font-bold text-white text-center">
                 اختر العلبة
               </h2>
-              <p className="text-cream-100 text-center">
-                Choose Your Container
-              </p>
             </div>
 
             <div className="p-6 space-y-6">
