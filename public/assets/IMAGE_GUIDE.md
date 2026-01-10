@@ -16,8 +16,7 @@ Files in place:
 Location: `public/assets/menu/`
 
 Files in place:
-- `menu1.jpg` - Price list page 1 ✓
-- `menu2.jpg` - Price list page 2 ✓
+- `menu_web.webp` - Price list ✓
 
 ## PWA Icons (Optional)
 Location: `public/`

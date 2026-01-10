@@ -47,8 +47,7 @@ public/assets/
 │   ├── cocoa-fingers copy copy.png
 │   └── greek copy copy.png
 └── menu/                    # Menu images
-    ├── menu1.jpg
-    └── menu2.jpg
+    └── menu_web.webp
 ```
 
 ## Images
@@ -62,9 +61,8 @@ Sweet row images are in place at `public/assets/sweets/`:
 - `greek copy copy.png` ✓
 
 ### Menu Images (Already Added)
-Menu images are in place at:
-- `public/assets/menu/menu1.jpg` ✓
-- `public/assets/menu/menu2.jpg` ✓
+Menu image is in place at:
+- `public/assets/menu/menu_web.webp` ✓
 
 ## UI Features
 
@@ -84,7 +82,6 @@ The price list modal includes:
 - **Double-Tap**: Double-tap to zoom 2x, double-tap again to reset
 - **Pan/Drag**: When zoomed, drag to move around the image
 - **Zoom Buttons**: Use +/- buttons to zoom in/out
-- **Scroll**: Scroll vertically between the two menu pages
 - **Zoom Indicator**: Shows current zoom percentage
 
 ## Box Logic

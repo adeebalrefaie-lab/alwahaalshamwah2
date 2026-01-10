@@ -41,20 +41,11 @@ export default function MenuModal({ isOpen, onClose }: MenuModalProps) {
               </div>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-4 space-y-6">
-              <div>
-                <ZoomableImage
-                  src="/assets/menu/menu1.jpg"
-                  alt="قائمة الأسعار - الصفحة الأولى"
-                />
-              </div>
-
-              <div>
-                <ZoomableImage
-                  src="/assets/menu/menu2.jpg"
-                  alt="قائمة الأسعار - الصفحة الثانية"
-                />
-              </div>
+            <div className="flex-1 overflow-y-auto p-4">
+              <ZoomableImage
+                src="/assets/menu/menu_web.webp"
+                alt="قائمة الأسعار"
+              />
             </div>
           </motion.div>
         </>
