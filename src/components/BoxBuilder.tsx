@@ -3,7 +3,7 @@ import { ArrowLeft, Trash2, ShoppingCart, AlertTriangle, Check } from 'lucide-re
 import { motion, AnimatePresence } from 'framer-motion';
 import { sweets, MIN_FILL_PERCENTAGE, type Sweet } from '../data/sweets';
 import { type BoxItem } from '../types';
-import { Container, calculateScaledWeight, calculateScaledPrice } from '../data/containers';
+import { Container, calculateScaledWeight, calculateScaledPrice, REFERENCE_HEIGHT_CM } from '../data/containers';
 import { useCart } from '../contexts/CartContext';
 import { useProductAvailability } from '../hooks/useProductAvailability';
 
@@ -196,7 +196,7 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
               <div
                 className="relative rounded-lg overflow-hidden"
                 style={{
-                  width: `${(200 * container.widthCm) / container.heightCm}px`,
+                  width: `${(200 * container.widthCm) / REFERENCE_HEIGHT_CM}px`,
                   height: '200px',
                   border: '2px solid #8B6F47',
                   backgroundColor: '#FBAF76'
@@ -269,7 +269,7 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
             <div
               className="rounded-b-lg flex items-center justify-center py-3 px-2"
               style={{
-                width: `${(200 * container.widthCm) / container.heightCm}px`,
+                width: `${(200 * container.widthCm) / REFERENCE_HEIGHT_CM}px`,
                 background: 'linear-gradient(to bottom, #6B5644, #4A3F35)',
                 borderTop: '2px solid #8B6F47'
               }}
@@ -280,7 +280,7 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
             </div>
 
             <div className="mt-3 flex justify-center">
-              <div className="h-1 bg-brown-200 rounded-full overflow-hidden" style={{ width: `${(200 * container.widthCm) / container.heightCm}px` }}>
+              <div className="h-1 bg-brown-200 rounded-full overflow-hidden" style={{ width: `${(200 * container.widthCm) / REFERENCE_HEIGHT_CM}px` }}>
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${Math.min(fillPercentage, 100)}%` }}
