@@ -3,7 +3,7 @@ import { ArrowLeft, Trash2, ShoppingCart, AlertTriangle, Check } from 'lucide-re
 import { motion, AnimatePresence } from 'framer-motion';
 import { sweets, MIN_FILL_PERCENTAGE, type Sweet } from '../data/sweets';
 import { type BoxItem } from '../types';
-import { Container, calculateScaledWeight, calculateScaledPrice, REFERENCE_HEIGHT_CM } from '../data/containers';
+import { Container, calculateScaledWeight, calculateScaledPrice } from '../data/containers';
 import { useCart } from '../contexts/CartContext';
 import { useProductAvailability } from '../hooks/useProductAvailability';
 
@@ -192,12 +192,11 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
               </span>
             </div>
 
-            <div className="bg-cream-100 rounded-xl p-3 shadow-md border-2 border-brown-400 flex justify-center">
+            <div className="bg-cream-100 rounded-xl p-3 shadow-md border-2 border-brown-400">
               <div
-                className="relative rounded-lg overflow-hidden"
+                className="relative w-full rounded-lg overflow-hidden"
                 style={{
-                  width: `${(200 * container.widthCm) / REFERENCE_HEIGHT_CM}px`,
-                  height: '200px',
+                  aspectRatio: `${container.widthCm}/${container.heightCm}`,
                   border: '2px solid #8B6F47',
                   backgroundColor: '#FBAF76'
                 }}
@@ -246,7 +245,7 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
                             style={{
                               width: '100%',
                               height: '100%',
-                              objectFit: 'contain',
+                              objectFit: 'cover',
                               objectPosition: 'center',
                               display: 'block',
                               margin: 0,
@@ -264,48 +263,46 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
                 </div>
               </div>
 
-            </div>
-
-            <div
-              className="rounded-b-lg flex items-center justify-center py-3 px-2"
-              style={{
-                width: `${(200 * container.widthCm) / REFERENCE_HEIGHT_CM}px`,
-                background: 'linear-gradient(to bottom, #6B5644, #4A3F35)',
-                borderTop: '2px solid #8B6F47'
-              }}
-            >
-              <span className="text-white font-semibold text-sm text-center leading-tight">
-                للإزالة، اضغط على الصنف داخل العلبة
-              </span>
-            </div>
-
-            <div className="mt-3 flex justify-center">
-              <div className="h-1 bg-brown-200 rounded-full overflow-hidden" style={{ width: `${(200 * container.widthCm) / REFERENCE_HEIGHT_CM}px` }}>
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: `${Math.min(fillPercentage, 100)}%` }}
-                  className={`h-full ${
-                    fillPercentage >= MIN_FILL_PERCENTAGE
-                      ? 'bg-brown-700'
-                      : 'bg-brown-500'
-                  }`}
-                />
+              <div
+                className="w-full rounded-b-lg flex items-center justify-center py-3 px-2"
+                style={{
+                  background: 'linear-gradient(to bottom, #6B5644, #4A3F35)',
+                  borderTop: '2px solid #8B6F47'
+                }}
+              >
+                <span className="text-white font-semibold text-sm text-center leading-tight">
+                  للإزالة، اضغط على الصنف داخل العلبة
+                </span>
               </div>
-            </div>
 
-            <AnimatePresence>
-              {overflowMessage && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="mt-3 bg-brown-50 border border-brown-400 rounded-lg p-3 flex items-center gap-2"
-                >
-                  <AlertTriangle className="w-5 h-5 text-brown-700 flex-shrink-0" />
-                  <p className="text-sm text-brown-800 text-right">{overflowMessage}</p>
-                </motion.div>
-              )}
-            </AnimatePresence>
+              <div className="mt-3 flex justify-center">
+                <div className="h-1 bg-brown-200 rounded-full w-full overflow-hidden">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: `${Math.min(fillPercentage, 100)}%` }}
+                    className={`h-full ${
+                      fillPercentage >= MIN_FILL_PERCENTAGE
+                        ? 'bg-brown-700'
+                        : 'bg-brown-500'
+                    }`}
+                  />
+                </div>
+              </div>
+
+              <AnimatePresence>
+                {overflowMessage && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="mt-3 bg-brown-50 border border-brown-400 rounded-lg p-3 flex items-center gap-2"
+                  >
+                    <AlertTriangle className="w-5 h-5 text-brown-700 flex-shrink-0" />
+                    <p className="text-sm text-brown-800 text-right">{overflowMessage}</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
         </div>
       </div>
