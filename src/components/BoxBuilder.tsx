@@ -192,11 +192,12 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
               </span>
             </div>
 
-            <div className="bg-cream-100 rounded-xl p-3 shadow-md border-2 border-brown-400">
+            <div className="bg-cream-100 rounded-xl p-3 shadow-md border-2 border-brown-400 flex justify-center">
               <div
-                className="relative w-full rounded-lg overflow-hidden"
+                className="relative rounded-lg overflow-hidden"
                 style={{
-                  aspectRatio: `${container.widthCm}/${container.heightCm}`,
+                  width: `${container.widthCm * 8}px`,
+                  height: '280px',
                   border: '2px solid #8B6F47',
                   backgroundColor: '#FBAF76'
                 }}
@@ -245,7 +246,7 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
                             style={{
                               width: '100%',
                               height: '100%',
-                              objectFit: 'cover',
+                              objectFit: 'contain',
                               objectPosition: 'center',
                               display: 'block',
                               margin: 0,
@@ -264,8 +265,9 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
               </div>
 
               <div
-                className="w-full rounded-b-lg flex items-center justify-center py-3 px-2"
+                className="rounded-b-lg flex items-center justify-center py-3 px-2"
                 style={{
+                  width: `${container.widthCm * 8}px`,
                   background: 'linear-gradient(to bottom, #6B5644, #4A3F35)',
                   borderTop: '2px solid #8B6F47'
                 }}
@@ -276,7 +278,7 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
               </div>
 
               <div className="mt-3 flex justify-center">
-                <div className="h-1 bg-brown-200 rounded-full w-full overflow-hidden">
+                <div className="h-1 bg-brown-200 rounded-full overflow-hidden" style={{ width: `${container.widthCm * 8}px` }}>
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${Math.min(fillPercentage, 100)}%` }}
