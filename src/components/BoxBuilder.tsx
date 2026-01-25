@@ -14,7 +14,7 @@ interface BoxBuilderProps {
 }
 
 export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilderProps) {
-  const VISUAL_HEIGHT_PX = 200;
+  const VISUAL_HEIGHT_PX = 140;
 
   const getVisualWidth = () => {
     const aspectRatio = container.widthCm / container.heightCm;
