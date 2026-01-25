@@ -198,14 +198,13 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
               </span>
             </div>
 
-            <div className="bg-cream-100 rounded-xl p-3 shadow-md border-2 border-brown-400">
-              <div className="flex justify-center">
+            <div className="flex justify-center">
+              <div className="inline-flex flex-col">
                 <div
-                  className="relative rounded-lg overflow-hidden"
+                  className="relative rounded-lg overflow-hidden shadow-md"
                   style={{
                     height: `${VISUAL_HEIGHT_PX}px`,
                     width: `${getVisualWidth()}px`,
-                    maxWidth: '100%',
                     border: '2px solid #8B6F47',
                     backgroundColor: '#FBAF76'
                   }}
@@ -271,14 +270,11 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
                   {totalWidth.toFixed(1)} / {container.widthCm} سم
                 </div>
               </div>
-              </div>
 
-              <div className="flex justify-center mt-3">
                 <div
-                  className="rounded-b-lg flex items-center justify-center py-3 px-2"
+                  className="rounded-b-lg flex items-center justify-center py-3 px-2 shadow-md"
                   style={{
                     width: `${getVisualWidth()}px`,
-                    maxWidth: '100%',
                     background: 'linear-gradient(to bottom, #6B5644, #4A3F35)',
                     borderTop: '2px solid #8B6F47'
                   }}
@@ -287,36 +283,39 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
                     للإزالة، اضغط على الصنف داخل العلبة
                   </span>
                 </div>
-              </div>
 
-              <div className="mt-3 flex justify-center">
-                <div className="h-1 bg-brown-200 rounded-full w-full overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: `${Math.min(fillPercentage, 100)}%` }}
-                    className={`h-full ${
-                      fillPercentage >= MIN_FILL_PERCENTAGE
-                        ? 'bg-brown-700'
-                        : 'bg-brown-500'
-                    }`}
-                  />
-                </div>
+              <div
+                className="h-1 bg-brown-200 rounded-full overflow-hidden mt-3 shadow-sm"
+                style={{
+                  width: `${getVisualWidth()}px`
+                }}
+              >
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: `${Math.min(fillPercentage, 100)}%` }}
+                  className={`h-full ${
+                    fillPercentage >= MIN_FILL_PERCENTAGE
+                      ? 'bg-brown-700'
+                      : 'bg-brown-500'
+                  }`}
+                />
               </div>
-
-              <AnimatePresence>
-                {overflowMessage && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className="mt-3 bg-brown-50 border border-brown-400 rounded-lg p-3 flex items-center gap-2"
-                  >
-                    <AlertTriangle className="w-5 h-5 text-brown-700 flex-shrink-0" />
-                    <p className="text-sm text-brown-800 text-right">{overflowMessage}</p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              </div>
             </div>
+
+            <AnimatePresence>
+              {overflowMessage && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="mt-3 bg-brown-50 border border-brown-400 rounded-lg p-3 flex items-center gap-2 max-w-md mx-auto"
+                >
+                  <AlertTriangle className="w-5 h-5 text-brown-700 flex-shrink-0" />
+                  <p className="text-sm text-brown-800 text-right">{overflowMessage}</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>
