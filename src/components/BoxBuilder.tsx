@@ -3,7 +3,7 @@ import { ArrowLeft, Trash2, ShoppingCart, AlertTriangle, Check } from 'lucide-re
 import { motion, AnimatePresence } from 'framer-motion';
 import { sweets, MIN_FILL_PERCENTAGE, type Sweet } from '../data/sweets';
 import { type BoxItem } from '../types';
-import { Container, calculateScaledWeight, calculateScaledPrice } from '../data/containers';
+import { Container, calculateScaledWeight, calculateScaledPrice, REFERENCE_HEIGHT_CM } from '../data/containers';
 import { useCart } from '../contexts/CartContext';
 import { useProductAvailability } from '../hooks/useProductAvailability';
 
@@ -14,6 +14,12 @@ interface BoxBuilderProps {
 }
 
 export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilderProps) {
+  const VISUAL_HEIGHT_PX = 200;
+
+  const getVisualWidth = () => {
+    const aspectRatio = container.widthCm / container.heightCm;
+    return VISUAL_HEIGHT_PX * aspectRatio;
+  };
   const [boxItems, setBoxItems] = useState<BoxItem[]>([]);
   const [overflowMessage, setOverflowMessage] = useState<string | null>(null);
   const [showAddedMessage, setShowAddedMessage] = useState(false);
@@ -193,14 +199,17 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
             </div>
 
             <div className="bg-cream-100 rounded-xl p-3 shadow-md border-2 border-brown-400">
-              <div
-                className="relative w-full rounded-lg overflow-hidden"
-                style={{
-                  aspectRatio: `${container.widthCm}/${container.heightCm}`,
-                  border: '2px solid #8B6F47',
-                  backgroundColor: '#FBAF76'
-                }}
-              >
+              <div className="flex justify-center">
+                <div
+                  className="relative rounded-lg overflow-hidden"
+                  style={{
+                    height: `${VISUAL_HEIGHT_PX}px`,
+                    width: `${getVisualWidth()}px`,
+                    maxWidth: '100%',
+                    border: '2px solid #8B6F47',
+                    backgroundColor: '#FBAF76'
+                  }}
+                >
                 {boxItems.length === 0 ? (
                   <div className="absolute inset-0 flex items-center justify-center text-coffee/40 text-sm">
                     ابدأ بإضافة الحلويات هنا
@@ -262,17 +271,22 @@ export default function BoxBuilder({ container, onBack, onOpenCart }: BoxBuilder
                   {totalWidth.toFixed(1)} / {container.widthCm} سم
                 </div>
               </div>
+              </div>
 
-              <div
-                className="w-full rounded-b-lg flex items-center justify-center py-3 px-2"
-                style={{
-                  background: 'linear-gradient(to bottom, #6B5644, #4A3F35)',
-                  borderTop: '2px solid #8B6F47'
-                }}
-              >
-                <span className="text-white font-semibold text-sm text-center leading-tight">
-                  للإزالة، اضغط على الصنف داخل العلبة
-                </span>
+              <div className="flex justify-center mt-3">
+                <div
+                  className="rounded-b-lg flex items-center justify-center py-3 px-2"
+                  style={{
+                    width: `${getVisualWidth()}px`,
+                    maxWidth: '100%',
+                    background: 'linear-gradient(to bottom, #6B5644, #4A3F35)',
+                    borderTop: '2px solid #8B6F47'
+                  }}
+                >
+                  <span className="text-white font-semibold text-sm text-center leading-tight">
+                    للإزالة، اضغط على الصنف داخل العلبة
+                  </span>
+                </div>
               </div>
 
               <div className="mt-3 flex justify-center">
