@@ -103,37 +103,37 @@ export default function FeaturedProductModal({
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="relative bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto"
+            className="relative bg-white rounded-2xl shadow-2xl max-w-sm w-full max-h-[90vh] overflow-y-auto"
           >
-            <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between z-10">
+            <div className="sticky top-0 bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between z-10">
               <div className="flex items-center gap-2">
-                <Star className="w-6 h-6 text-amber-500 fill-amber-500" />
-                <h2 className="text-xl font-bold text-gray-900">إضافة إلى المنتجات المميزة</h2>
+                <Star className="w-5 h-5 text-amber-500 fill-amber-500" />
+                <h2 className="text-lg font-bold text-gray-900">إضافة إلى المنتجات المميزة</h2>
               </div>
               <button
                 onClick={handleClose}
                 disabled={isSubmitting}
                 className="text-gray-400 hover:text-gray-600 transition-colors disabled:opacity-50"
               >
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5" />
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="p-6 space-y-6">
-              <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
+            <form onSubmit={handleSubmit} className="p-4 space-y-4">
+              <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="w-20 h-20 object-cover rounded-lg"
+                  className="w-16 h-16 object-cover rounded-lg"
                 />
                 <div>
-                  <h3 className="font-semibold text-gray-900">{product.name}</h3>
-                  <span className="text-sm text-gray-500 capitalize">{product.type}</span>
+                  <h3 className="text-sm font-semibold text-gray-900">{product.name}</h3>
+                  <span className="text-xs text-gray-500 capitalize">{product.type}</span>
                 </div>
               </div>
 
               <div>
-                <label htmlFor="special-description" className="block text-sm font-medium text-gray-700 mb-2 text-right">
+                <label htmlFor="special-description" className="block text-xs font-medium text-gray-700 mb-1.5 text-right">
                   الوصف المميز
                 </label>
                 <textarea
@@ -141,35 +141,35 @@ export default function FeaturedProductModal({
                   value={specialDescription}
                   onChange={(e) => setSpecialDescription(e.target.value)}
                   placeholder="أدخل وصفاً مميزاً يبرز ما يجعل هذا المنتج فريداً..."
-                  rows={4}
+                  rows={3}
                   disabled={isSubmitting}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent resize-none disabled:opacity-50 disabled:bg-gray-50 text-right"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent resize-none disabled:opacity-50 disabled:bg-gray-50 text-right text-sm"
                   dir="rtl"
                 />
-                <p className="mt-2 text-sm text-gray-500 text-right">
+                <p className="mt-1.5 text-xs text-gray-500 text-right">
                   سيظهر هذا الوصف في قسم المنتجات المميزة على الصفحة الرئيسية
                 </p>
               </div>
 
               {error && (
-                <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm text-right" dir="rtl">
+                <div className="p-2 bg-red-50 border border-red-200 rounded-lg text-red-700 text-xs text-right" dir="rtl">
                   {error}
                 </div>
               )}
 
-              <div className="flex gap-3">
+              <div className="flex gap-2">
                 <button
                   type="button"
                   onClick={handleClose}
                   disabled={isSubmitting}
-                  className="flex-1 px-6 py-3 border border-gray-300 rounded-xl font-medium text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50"
+                  className="flex-1 px-4 py-2 border border-gray-300 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50"
                 >
                   إلغاء
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting || !specialDescription.trim()}
-                  className="flex-1 px-6 py-3 bg-amber-500 text-white rounded-xl font-medium hover:bg-amber-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 px-4 py-2 bg-amber-500 text-white rounded-xl text-sm font-medium hover:bg-amber-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? 'جاري الإضافة...' : 'إضافة إلى المميزة'}
                 </button>

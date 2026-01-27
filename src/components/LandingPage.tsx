@@ -37,18 +37,6 @@ export default function LandingPage({ onStartBuilder, onStartAlaCarte, onOpenMen
         </div>
       </button>
 
-      <FeaturedProductsCarousel
-        onProductClick={(product) => {
-          setSelectedProduct({
-            product_id: product.product_id,
-            product_type: product.product_type,
-            product_name: product.product_name,
-            product_image: product.product_image,
-            special_description: product.special_description
-          });
-        }}
-      />
-
       <div className="flex-1 flex items-center justify-center p-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -130,6 +118,18 @@ export default function LandingPage({ onStartBuilder, onStartAlaCarte, onOpenMen
         </motion.div>
       </motion.div>
       </div>
+
+      <FeaturedProductsCarousel
+        onProductClick={(product) => {
+          setSelectedProduct({
+            product_id: product.product_id,
+            product_type: product.product_type,
+            product_name: product.product_name,
+            product_image: product.product_image,
+            special_description: product.special_description
+          });
+        }}
+      />
 
       {selectedProduct && (
         <ProductDetailsModal
