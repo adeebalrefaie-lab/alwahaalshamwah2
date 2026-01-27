@@ -60,8 +60,9 @@ export const AdminDashboard = () => {
   const loadFeaturedProducts = async () => {
     try {
       const { data, error } = await supabase
-        .from('featured_products')
+        .from('product_featured_status')
         .select('*')
+        .eq('is_featured', true)
         .order('display_order', { ascending: true });
 
       if (error) throw error;
@@ -135,8 +136,8 @@ export const AdminDashboard = () => {
     setRemovingFeatured(featuredId);
     try {
       const { error } = await supabase
-        .from('featured_products')
-        .delete()
+        .from('product_featured_status')
+        .update({ is_featured: false })
         .eq('id', featuredId);
 
       if (error) throw error;

@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { sweets } from '../data/sweets';
 import { alacarteItems } from '../data/alacarteItems';
+import type { Sweet, AlaCarteItem } from '../types';
 
 interface FeaturedProduct {
   id: string;
@@ -14,6 +15,7 @@ interface FeaturedProduct {
   product_name: string;
   product_image: string;
   product_price: number;
+  productData: Sweet | AlaCarteItem;
 }
 
 interface FeaturedProductsCarouselProps {
@@ -29,8 +31,9 @@ export default function FeaturedProductsCarousel({ onProductClick }: FeaturedPro
   const loadFeaturedProducts = useCallback(async () => {
     try {
       const { data, error } = await supabase
-        .from('featured_products')
+        .from('product_featured_status')
         .select('*')
+        .eq('is_featured', true)
         .order('display_order', { ascending: true });
 
       if (error) throw error;
@@ -38,22 +41,28 @@ export default function FeaturedProductsCarousel({ onProductClick }: FeaturedPro
       const enrichedProducts: FeaturedProduct[] = (data || []).map(fp => {
         if (fp.product_type === 'sweet') {
           const sweet = sweets.find(s => s.id === fp.product_id);
+          if (!sweet) return null;
           return {
             ...fp,
-            product_name: sweet?.nameAr || '',
-            product_image: sweet?.image || '',
-            product_price: sweet?.priceJOD || 0
+            product_name: sweet.nameAr,
+            product_image: sweet.image,
+            product_price: sweet.priceJOD,
+            special_description: fp.special_description || '',
+            productData: sweet
           };
         } else {
           const item = alacarteItems.find(i => i.id === fp.product_id);
+          if (!item) return null;
           return {
             ...fp,
-            product_name: item?.nameAr || '',
-            product_image: item?.image || '',
-            product_price: item?.pricePerKgJOD || item?.fixedPriceJOD || 0
+            product_name: item.nameAr,
+            product_image: item.image,
+            product_price: item.pricePerKgJOD || item.fixedPriceJOD || 0,
+            special_description: fp.special_description || '',
+            productData: item
           };
         }
-      }).filter(fp => fp.product_name);
+      }).filter((fp): fp is FeaturedProduct => fp !== null);
 
       setFeaturedProducts(enrichedProducts);
     } catch (error) {

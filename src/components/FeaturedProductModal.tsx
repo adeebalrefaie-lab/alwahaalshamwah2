@@ -45,30 +45,51 @@ export default function FeaturedProductModal({
         return;
       }
 
-      const { data, error: insertError } = await supabase
-        .from('featured_products')
-        .insert({
-          product_id: product.id,
-          product_type: product.type,
-          special_description: specialDescription.trim(),
-          display_order: 0
-        })
-        .select();
+      const { data: existingProduct } = await supabase
+        .from('product_featured_status')
+        .select('id')
+        .eq('product_id', product.id)
+        .eq('product_type', product.type)
+        .maybeSingle();
 
-      if (insertError) {
-        console.error('Insert error:', insertError);
-        if (insertError.code === '23505') {
-          setError('هذا المنتج مضاف بالفعل إلى المنتجات المميزة');
-        } else if (insertError.code === '42501') {
-          setError('ليس لديك صلاحية لإضافة منتجات مميزة');
-        } else {
-          setError(`خطأ: ${insertError.message}`);
+      if (existingProduct) {
+        const { error: updateError } = await supabase
+          .from('product_featured_status')
+          .update({
+            is_featured: true,
+            special_description: specialDescription.trim()
+          })
+          .eq('id', existingProduct.id);
+
+        if (updateError) {
+          console.error('Update error:', updateError);
+          setError(`خطأ: ${updateError.message}`);
+          setIsSubmitting(false);
+          return;
         }
-        setIsSubmitting(false);
-        return;
+      } else {
+        const { error: insertError } = await supabase
+          .from('product_featured_status')
+          .insert({
+            product_id: product.id,
+            product_type: product.type,
+            is_featured: true,
+            special_description: specialDescription.trim(),
+            display_order: 0
+          });
+
+        if (insertError) {
+          console.error('Insert error:', insertError);
+          if (insertError.code === '42501') {
+            setError('ليس لديك صلاحية لإضافة منتجات مميزة');
+          } else {
+            setError(`خطأ: ${insertError.message}`);
+          }
+          setIsSubmitting(false);
+          return;
+        }
       }
 
-      console.log('Featured product added successfully:', data);
       setSpecialDescription('');
       onSuccess?.();
       onClose();
