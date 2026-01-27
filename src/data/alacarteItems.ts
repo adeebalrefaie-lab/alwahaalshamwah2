@@ -12,8 +12,13 @@ export interface AlaCarteItem {
   fixedWeightKg?: number;
   fixedPriceJOD?: number;
   imagePlaceholder?: string;
+  image?: string;
   customWeightOptions?: CustomWeightOption[];
 }
+
+export const getAlaCarteItemImage = (item: AlaCarteItem): string => {
+  return item.image || item.imagePlaceholder || '/assets/sweets/separator.webp';
+};
 
 export interface WeightOption {
   id: string;

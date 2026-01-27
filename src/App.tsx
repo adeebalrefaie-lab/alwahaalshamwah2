@@ -102,15 +102,21 @@ function AppContent() {
     );
   }
 
+  const handleAdminGoHome = () => {
+    setIsAdminLoginOpen(false);
+    handlePageChange('landing');
+    window.history.pushState({}, '', '/');
+  };
+
   if (isAdminRoute) {
     if (user) {
-      return <AdminDashboard />;
+      return <AdminDashboard onGoHome={() => window.location.href = '/'} />;
     }
     return <AdminLogin onLoginSuccess={() => window.location.reload()} />;
   }
 
   if (isAdminLoginOpen && user) {
-    return <AdminDashboard />;
+    return <AdminDashboard onGoHome={handleAdminGoHome} />;
   }
 
   return (

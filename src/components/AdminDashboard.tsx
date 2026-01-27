@@ -3,7 +3,7 @@ import { useAdminAuth } from '../contexts/AdminAuthContext';
 import { supabase, ProductAvailability } from '../lib/supabase';
 import { alacarteItems, getCategoryNameAr } from '../data/alacarteItems';
 import { sweets } from '../data/sweets';
-import { LogOut, Package, RefreshCw, Star, Trash2 } from 'lucide-react';
+import { LogOut, Package, RefreshCw, Star, Trash2, Home } from 'lucide-react';
 import { ShopSettingsPanel } from './ShopSettingsPanel';
 import FeaturedProductModal from './FeaturedProductModal';
 
@@ -15,7 +15,11 @@ interface FeaturedProduct {
   display_order: number;
 }
 
-export const AdminDashboard = () => {
+interface AdminDashboardProps {
+  onGoHome?: () => void;
+}
+
+export const AdminDashboard = ({ onGoHome }: AdminDashboardProps = {}) => {
   const { signOut, user } = useAdminAuth();
   const [availability, setAvailability] = useState<Record<string, boolean>>({});
   const [loading, setLoading] = useState(true);
@@ -210,13 +214,24 @@ export const AdminDashboard = () => {
                 <p className="text-sm text-gray-600">إدارة توفر المنتجات</p>
               </div>
             </div>
-            <button
-              onClick={() => signOut()}
-              className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors"
-            >
-              <LogOut className="w-4 h-4" />
-              <span>تسجيل خروج</span>
-            </button>
+            <div className="flex items-center gap-3">
+              {onGoHome && (
+                <button
+                  onClick={onGoHome}
+                  className="flex items-center gap-2 px-4 py-2 bg-amber-100 hover:bg-amber-200 text-amber-700 rounded-lg transition-colors"
+                >
+                  <Home className="w-4 h-4" />
+                  <span>العودة للموقع</span>
+                </button>
+              )}
+              <button
+                onClick={() => signOut()}
+                className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors"
+              >
+                <LogOut className="w-4 h-4" />
+                <span>تسجيل خروج</span>
+              </button>
+            </div>
           </div>
         </div>
       </header>
