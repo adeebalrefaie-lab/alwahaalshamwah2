@@ -29,7 +29,7 @@ export default function FeaturedProductModal({
     e.preventDefault();
 
     if (!specialDescription.trim()) {
-      setError('Please enter a special description');
+      setError('يرجى إدخال وصف خاص');
       return;
     }
 
@@ -37,32 +37,44 @@ export default function FeaturedProductModal({
     setError(null);
 
     try {
-      const { error: insertError } = await supabase
+      const { data: session } = await supabase.auth.getSession();
+
+      if (!session.session) {
+        setError('يجب تسجيل الدخول لإضافة منتجات مميزة');
+        setIsSubmitting(false);
+        return;
+      }
+
+      const { data, error: insertError } = await supabase
         .from('featured_products')
         .insert({
           product_id: product.id,
           product_type: product.type,
           special_description: specialDescription.trim(),
           display_order: 0
-        });
+        })
+        .select();
 
       if (insertError) {
+        console.error('Insert error:', insertError);
         if (insertError.code === '23505') {
-          setError('This product is already featured');
+          setError('هذا المنتج مضاف بالفعل إلى المنتجات المميزة');
+        } else if (insertError.code === '42501') {
+          setError('ليس لديك صلاحية لإضافة منتجات مميزة');
         } else {
-          throw insertError;
+          setError(`خطأ: ${insertError.message}`);
         }
         setIsSubmitting(false);
         return;
       }
 
+      console.log('Featured product added successfully:', data);
       setSpecialDescription('');
       onSuccess?.();
       onClose();
     } catch (err) {
       console.error('Error adding featured product:', err);
-      setError('Failed to add product to featured list');
-    } finally {
+      setError('حدث خطأ أثناء إضافة المنتج إلى القائمة المميزة');
       setIsSubmitting(false);
     }
   };
@@ -96,7 +108,7 @@ export default function FeaturedProductModal({
             <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between z-10">
               <div className="flex items-center gap-2">
                 <Star className="w-6 h-6 text-amber-500 fill-amber-500" />
-                <h2 className="text-xl font-bold text-gray-900">Add to Featured</h2>
+                <h2 className="text-xl font-bold text-gray-900">إضافة إلى المنتجات المميزة</h2>
               </div>
               <button
                 onClick={handleClose}
@@ -121,25 +133,26 @@ export default function FeaturedProductModal({
               </div>
 
               <div>
-                <label htmlFor="special-description" className="block text-sm font-medium text-gray-700 mb-2">
-                  Special Description
+                <label htmlFor="special-description" className="block text-sm font-medium text-gray-700 mb-2 text-right">
+                  الوصف المميز
                 </label>
                 <textarea
                   id="special-description"
                   value={specialDescription}
                   onChange={(e) => setSpecialDescription(e.target.value)}
-                  placeholder="Enter a special description that highlights what makes this product unique..."
+                  placeholder="أدخل وصفاً مميزاً يبرز ما يجعل هذا المنتج فريداً..."
                   rows={4}
                   disabled={isSubmitting}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent resize-none disabled:opacity-50 disabled:bg-gray-50"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent resize-none disabled:opacity-50 disabled:bg-gray-50 text-right"
+                  dir="rtl"
                 />
-                <p className="mt-2 text-sm text-gray-500">
-                  This description will appear on the homepage featured section
+                <p className="mt-2 text-sm text-gray-500 text-right">
+                  سيظهر هذا الوصف في قسم المنتجات المميزة على الصفحة الرئيسية
                 </p>
               </div>
 
               {error && (
-                <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+                <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm text-right" dir="rtl">
                   {error}
                 </div>
               )}
@@ -151,14 +164,14 @@ export default function FeaturedProductModal({
                   disabled={isSubmitting}
                   className="flex-1 px-6 py-3 border border-gray-300 rounded-xl font-medium text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50"
                 >
-                  Cancel
+                  إلغاء
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting || !specialDescription.trim()}
                   className="flex-1 px-6 py-3 bg-amber-500 text-white rounded-xl font-medium hover:bg-amber-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isSubmitting ? 'Adding...' : 'Add to Featured'}
+                  {isSubmitting ? 'جاري الإضافة...' : 'إضافة إلى المميزة'}
                 </button>
               </div>
             </form>
