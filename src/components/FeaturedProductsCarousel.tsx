@@ -2,9 +2,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { supabase } from '../lib/supabase';
-import { sweets } from '../data/sweets';
-import { alacarteItems, getAlaCarteItemImage } from '../data/alacarteItems';
-import type { Sweet, AlaCarteItem } from '../types';
+import { sweets, type Sweet } from '../data/sweets';
+import { alacarteItems, getAlaCarteItemImage, type AlaCarteItem } from '../data/alacarteItems';
 
 interface FeaturedProduct {
   id: string;

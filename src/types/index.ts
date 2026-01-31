@@ -16,6 +16,8 @@ export interface AlaCarteCartItem {
   weightLabel: string;
   totalPrice: number;
   instanceId: string;
+  pricingMode?: 'weight' | 'amount';
+  customAmount?: number;
 }
 
 export interface CustomBoxCartItem {

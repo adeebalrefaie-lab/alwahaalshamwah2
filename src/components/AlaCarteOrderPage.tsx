@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ArrowLeft, ShoppingCart, Package } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { alacarteItems, getCategoryItems, getCategoryNameAr, AlaCarteItem } from '../data/alacarteItems';
+import { getCategoryItems, getCategoryNameAr, AlaCarteItem } from '../data/alacarteItems';
 import WeightSelectionModal from './WeightSelectionModal';
 import GiftBoxPreviewModal from './GiftBoxPreviewModal';
 import { useProductAvailability } from '../hooks/useProductAvailability';
@@ -53,10 +53,18 @@ export default function AlaCarteOrderPage({ onBack, onOpenCart }: AlaCarteOrderP
     });
   };
 
-  const handleAddToCart = (item: AlaCarteItem, weightKg: number, weightLabel: string) => {
+  const handleAddToCart = (
+    item: AlaCarteItem,
+    weightKg: number,
+    weightLabel: string,
+    pricingMode?: 'weight' | 'amount',
+    customAmount?: number
+  ) => {
     let totalPrice = (item.pricePerKgJOD || 0) * weightKg;
 
-    if (item.customWeightOptions) {
+    if (pricingMode === 'amount' && customAmount) {
+      totalPrice = customAmount;
+    } else if (item.customWeightOptions) {
       const customOption = item.customWeightOptions.find(o => o.weightKg === weightKg);
       if (customOption) {
         totalPrice = customOption.priceJOD;
@@ -71,6 +79,8 @@ export default function AlaCarteOrderPage({ onBack, onOpenCart }: AlaCarteOrderP
       weightLabel,
       totalPrice,
       instanceId: `${item.id}-${Date.now()}-${Math.random()}`,
+      pricingMode: pricingMode || 'weight',
+      customAmount,
     });
   };
 

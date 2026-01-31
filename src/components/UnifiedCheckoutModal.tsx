@@ -76,12 +76,22 @@ export default function UnifiedCheckoutModal({
       let itemIndex = 1;
       itemGroups.forEach(({ item, count }) => {
         message += `${itemIndex}️⃣ ${item.item.nameAr}\n`;
-        message += `   📏 الحجم: ${item.weightLabel}\n`;
-        message += `   🔢 الكمية: ${count}\n`;
-        message += `   💰 سعر الوحدة: ${item.totalPrice.toFixed(2)} د.أ\n`;
-        if (count > 1) {
-          message += `   💵 المجموع الفرعي: ${(item.totalPrice * count).toFixed(2)} د.أ\n`;
+
+        if (item.pricingMode === 'amount') {
+          message += `   💵 طلب بقيمة: ${item.totalPrice.toFixed(2)} د.أ\n`;
+          message += `   🔢 الكمية: ${count}\n`;
+          if (count > 1) {
+            message += `   💰 المجموع الفرعي: ${(item.totalPrice * count).toFixed(2)} د.أ\n`;
+          }
+        } else {
+          message += `   📏 الحجم: ${item.weightLabel}\n`;
+          message += `   🔢 الكمية: ${count}\n`;
+          message += `   💰 سعر الوحدة: ${item.totalPrice.toFixed(2)} د.أ\n`;
+          if (count > 1) {
+            message += `   💵 المجموع الفرعي: ${(item.totalPrice * count).toFixed(2)} د.أ\n`;
+          }
         }
+
         message += `\n`;
         itemIndex++;
       });

@@ -100,7 +100,13 @@ export default function UnifiedCartModal({
                         </div>
                         <div className="flex-1 text-right">
                           <h3 className="font-semibold text-coffee">{cartItem.item.nameAr}</h3>
-                          <p className="text-sm text-brown-600 mt-1">{cartItem.weightLabel}</p>
+                          {cartItem.pricingMode === 'amount' ? (
+                            <p className="text-sm text-brown-600 mt-1">
+                              طلب بقيمة {cartItem.totalPrice.toFixed(2)} د.أ
+                            </p>
+                          ) : (
+                            <p className="text-sm text-brown-600 mt-1">{cartItem.weightLabel}</p>
+                          )}
                           <p className="text-lg font-bold text-bronze mt-2">
                             {cartItem.totalPrice.toFixed(2)} د.أ
                           </p>

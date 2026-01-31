@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AlaCarteItem, weightOptions, type CustomWeightOption } from '../data/alacarteItems';
@@ -6,15 +7,32 @@ interface WeightSelectionModalProps {
   isOpen: boolean;
   onClose: () => void;
   item: AlaCarteItem | null;
-  onAddToCart: (item: AlaCarteItem, weightKg: number, weightLabel: string) => void;
+  onAddToCart: (item: AlaCarteItem, weightKg: number, weightLabel: string, pricingMode?: 'weight' | 'amount', customAmount?: number) => void;
 }
 
 export default function WeightSelectionModal({ isOpen, onClose, item, onAddToCart }: WeightSelectionModalProps) {
+  const [pricingMode, setPricingMode] = useState<'weight' | 'amount'>('weight');
+  const [customAmount, setCustomAmount] = useState<string>('');
+
   if (!item) return null;
 
+  const isDailyItem = item.category === 'daily';
+
   const handleSelectWeight = (weightKg: number, weightLabel: string) => {
-    onAddToCart(item, weightKg, weightLabel);
+    onAddToCart(item, weightKg, weightLabel, 'weight');
     onClose();
+    setPricingMode('weight');
+    setCustomAmount('');
+  };
+
+  const handleAddByAmount = () => {
+    const amount = parseFloat(customAmount);
+    if (amount > 0) {
+      onAddToCart(item, 0, 'حسب المبلغ', 'amount', amount);
+      onClose();
+      setPricingMode('weight');
+      setCustomAmount('');
+    }
   };
 
   return (
@@ -65,11 +83,37 @@ export default function WeightSelectionModal({ isOpen, onClose, item, onAddToCar
                 )}
               </div>
 
-              <div className="space-y-1.5">
-                <h3 className="text-[1.01rem] font-semibold text-coffee text-center">
-                  اختر الوزن
-                </h3>
-                <div className="grid grid-cols-2 gap-1.5">
+              {isDailyItem && (
+                <div className="flex gap-1.5 p-1 bg-cream-100 rounded-lg">
+                  <button
+                    onClick={() => setPricingMode('weight')}
+                    className={`flex-1 py-2 px-3 rounded-md font-semibold text-sm transition-all ${
+                      pricingMode === 'weight'
+                        ? 'bg-gradient-to-br from-brown-500 to-brown-600 text-white shadow-md'
+                        : 'text-brown-600 hover:bg-cream-200'
+                    }`}
+                  >
+                    بالوزن
+                  </button>
+                  <button
+                    onClick={() => setPricingMode('amount')}
+                    className={`flex-1 py-2 px-3 rounded-md font-semibold text-sm transition-all ${
+                      pricingMode === 'amount'
+                        ? 'bg-gradient-to-br from-brown-500 to-brown-600 text-white shadow-md'
+                        : 'text-brown-600 hover:bg-cream-200'
+                    }`}
+                  >
+                    بالدينار
+                  </button>
+                </div>
+              )}
+
+              {pricingMode === 'weight' ? (
+                <div className="space-y-1.5">
+                  <h3 className="text-[1.01rem] font-semibold text-coffee text-center">
+                    اختر الوزن
+                  </h3>
+                  <div className="grid grid-cols-2 gap-1.5">
                   {(item.customWeightOptions || weightOptions).map((option) => {
                     let weight: number;
                     let label: string;
@@ -101,6 +145,34 @@ export default function WeightSelectionModal({ isOpen, onClose, item, onAddToCar
                   })}
                 </div>
               </div>
+              ) : (
+                <div className="space-y-3">
+                  <h3 className="text-[1.01rem] font-semibold text-coffee text-center">
+                    أدخل المبلغ المطلوب بالدينار
+                  </h3>
+                  <div className="space-y-2">
+                    <input
+                      type="number"
+                      min="0.5"
+                      step="0.5"
+                      value={customAmount}
+                      onChange={(e) => setCustomAmount(e.target.value)}
+                      placeholder="مثال: 5"
+                      className="w-full px-4 py-3 text-center text-lg font-semibold border-2 border-brown-400 rounded-lg focus:border-brown-600 focus:outline-none bg-white"
+                      dir="ltr"
+                    />
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={handleAddByAmount}
+                      disabled={!customAmount || parseFloat(customAmount) <= 0}
+                      className="w-full py-3 bg-gradient-to-br from-brown-500 to-brown-600 text-white font-bold text-lg rounded-lg hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      إضافة للسلة
+                    </motion.button>
+                  </div>
+                </div>
+              )}
             </div>
           </motion.div>
         </div>
