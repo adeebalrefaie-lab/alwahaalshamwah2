@@ -5,6 +5,7 @@ import { alacarteItems, getCategoryNameAr } from '../data/alacarteItems';
 import { sweets } from '../data/sweets';
 import { LogOut, Package, RefreshCw, Star, Trash2, Home } from 'lucide-react';
 import { ShopSettingsPanel } from './ShopSettingsPanel';
+import PromoCodeManager from './PromoCodeManager';
 import FeaturedProductModal from './FeaturedProductModal';
 
 interface FeaturedProduct {
@@ -290,6 +291,8 @@ export const AdminDashboard = ({ onGoHome }: AdminDashboardProps = {}) => {
           )}
 
           <ShopSettingsPanel />
+
+          {user && <PromoCodeManager userId={user.id} />}
 
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
             <div className="bg-gradient-to-r from-amber-500 to-orange-500 px-6 py-4">

@@ -3,6 +3,7 @@ import { X, Send, User, Phone as PhoneIcon, Truck, Store, AlertCircle } from 'lu
 import { motion, AnimatePresence } from 'framer-motion';
 import { UnifiedCartItem } from '../types';
 import { useShopStatus } from '../hooks/useShopStatus';
+import { useCart } from '../contexts/CartContext';
 
 interface UnifiedCheckoutModalProps {
   isOpen: boolean;
@@ -27,6 +28,10 @@ export default function UnifiedCheckoutModal({
   const [phone, setPhone] = useState('');
   const [deliveryMethod, setDeliveryMethod] = useState<DeliveryMethod>('');
   const { isOpen: isShopOpen } = useShopStatus();
+  const { appliedPromo, getDiscountedTotal } = useCart();
+  const { subtotal, discountAmount, finalTotal } = getDiscountedTotal();
+
+  const displayTotal = appliedPromo ? finalTotal : totalPrice;
 
   const generateWhatsAppMessage = () => {
     let message = `🌟 طلب جديد - حلويات الواحة الشامية 🌟\n\n`;
@@ -98,7 +103,16 @@ export default function UnifiedCheckoutModal({
     }
 
     message += `━━━━━━━━━━━━━━━━━━━━\n`;
-    message += `💰 المجموع الكلي: ${totalPrice.toFixed(2)} دينار أردني\n`;
+
+    if (appliedPromo) {
+      message += `المجموع الفرعي: ${subtotal.toFixed(2)} دينار أردني\n`;
+      message += `🏷️ خصم (Code: ${appliedPromo.code}): -${discountAmount.toFixed(2)} دينار أردني\n`;
+      message += `━━━━━━━━━━━━━━━━━━━━\n`;
+      message += `*المجموع النهائي: ${finalTotal.toFixed(2)} دينار أردني*\n`;
+    } else {
+      message += `💰 المجموع الكلي: ${totalPrice.toFixed(2)} دينار أردني\n`;
+    }
+
     message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
 
     message += `👤 الاسم: ${name}\n`;
@@ -153,9 +167,26 @@ export default function UnifiedCheckoutModal({
             </div>
 
             <div className="flex-1 overflow-y-auto p-6 space-y-6">
-              <div className="bg-brown-200 border-2 border-brown-400 rounded-xl p-4 text-center">
-                <div className="text-coffee/70 text-sm mb-1">المجموع الكلي</div>
-                <div className="text-3xl font-bold text-bronze">{totalPrice.toFixed(2)} د.أ</div>
+              <div className="bg-brown-200 border-2 border-brown-400 rounded-xl p-4 text-center space-y-2">
+                {appliedPromo ? (
+                  <>
+                    <div className="text-coffee/70 text-sm">المجموع الفرعي</div>
+                    <div className="text-xl text-coffee/60 line-through">{subtotal.toFixed(2)} د.أ</div>
+                    <div className="flex items-center justify-center gap-2 text-sm text-teal-700 font-medium">
+                      <span className="bg-teal-100 px-2 py-0.5 rounded-full">
+                        {appliedPromo.code}
+                      </span>
+                      <span>خصم {appliedPromo.discountPercentage}% (-{discountAmount.toFixed(2)} د.أ)</span>
+                    </div>
+                    <div className="text-coffee/70 text-sm">المجموع النهائي</div>
+                    <div className="text-3xl font-bold text-bronze">{finalTotal.toFixed(2)} د.أ</div>
+                  </>
+                ) : (
+                  <>
+                    <div className="text-coffee/70 text-sm">المجموع الكلي</div>
+                    <div className="text-3xl font-bold text-bronze">{displayTotal.toFixed(2)} د.أ</div>
+                  </>
+                )}
               </div>
 
               <div className="space-y-4">
